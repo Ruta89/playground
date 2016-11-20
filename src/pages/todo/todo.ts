@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 @Component({
-  selector: 'page-inwestycje',
-  templateUrl: 'inwestycje.html'
+  selector: 'page-todo',
+  templateUrl: 'todo.html'
 })
-export class InwestycjePage {
+export class TodoPage {
 
   constructor(public navCtrl: NavController) {}
 
   ionViewDidLoad() {
-    console.log('Hello InwestycjePage Page');
+    console.log('Jestes w Todo Page');
   }
 
 }

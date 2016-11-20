@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { TodoPage } from '../pages/todo/todo';
 import { InwestycjePage } from '../pages/inwestycje/inwestycje';
-import { MenuPage } from '../pages/menu/menu';
 import { PracaPage } from '../pages/praca/praca';
-import { StartPage } from '../pages/start/start';
-import { MyTabPage } from '../pages/my-tab-page/my-tab-page';
+import { TabsPage } from '../pages/tabs/tabs';
 // Import the AF2 Module
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
@@ -28,23 +27,25 @@ const myFirebaseAuthConfig = {
   declarations: [
     MyApp,
     HomePage,
+    TodoPage,
     InwestycjePage,
-    MenuPage,
     PracaPage,
-    StartPage
+    TabsPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+        tabsPlacement: 'top'
+          }),
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
+    TodoPage,
     InwestycjePage,
-    MenuPage,
     PracaPage,
-    StartPage,
+    TabsPage
   ],
   providers: []  // AuthData, ProfileData, Data
 })

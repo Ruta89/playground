@@ -1,0 +1,32 @@
+<!-- Segment in a header -->
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Start Segment
+    </ion-title>
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="icons" color="secondary">
+      <ion-segment-button value="camera">
+        <ion-icon name="camera"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="bookmark">
+        <ion-icon name="bookmark"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Segment in content -->
+  <ion-segment [(ngModel)]="relationship" color="primary">
+    <ion-segment-button value="friends" (ionSelect)="selectedFriends()">
+      Friends
+    </ion-segment-button>
+    <ion-segment-button value="enemies" (ionSelect)="selectedEnemies()">
+      Enemies
+    </ion-segment-button>
+  </ion-segment>
+
+  <button ion-button block (click)="showToast('top')">Tak dziala Toast 2s top</button>
+  </ion-content>

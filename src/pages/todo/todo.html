@@ -9,10 +9,25 @@
 
 <h2>Todo - czyli lista rzeczy do zrobienia</h2>
 
-<ul>
+<!-- <ul>
   <li class="text" *ngFor="let item of items | async">
     {{item.$value}}
   </li>
-</ul>
+</ul> -->
+
+<ion-list>
+  <ion-item>
+    <ion-label floating>ToDo:</ion-label>
+    <ion-input type="text" [(ngModel)]="newTodo"></ion-input>
+  </ion-item>
+</ion-list>
+<button ion-button full (click)="addTodo(newTodo)" (click)="newTodo = '' ">Dodaj zadanie</button>
+
+<ion-list no-lines>
+  <ion-item *ngFor="let i = index; let item of items | async">
+    <ion-label>{{item.$value}}</ion-label>
+    <ion-checkbox color="dark" checked="true"></ion-checkbox>
+  </ion-item>
+</ion-list>
 
 </ion-content>

@@ -8,9 +8,16 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 })
 export class TodoPage {
   items: FirebaseListObservable<any[]>;
+  newTodo: string;
 
   constructor(public navCtrl: NavController, af: AngularFire) {
     this.items = af.database.list('/items');
+  }
+
+  addTodo = (item) => {
+    if (item) {
+      this.items.push(item);
+    }
   }
 
   ionViewDidLoad() {

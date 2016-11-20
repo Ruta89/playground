@@ -20,6 +20,15 @@ export class TodoPage {
     }
   }
 
+  deleteTodo = (item) => {
+    this.items.remove(item);
+  }
+
+  //  - Czy to to samo?
+  // deleteTodo(item) {
+  //   this.items.remove(item);
+  // }
+
   ionViewDidLoad() {
     console.log('Jestes w Todo Page');
   }

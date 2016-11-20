@@ -16,18 +16,27 @@ export class TodoPage {
 
   addTodo = (item) => {
     if (item) {
-      this.items.push(item);
+      this.items.push({
+        "text": item,
+        "isDone": false
+      });
     }
   }
 
   deleteTodo = (item) => {
-    this.items.remove(item);
+    if (item.isDone) {
+      this.items.remove(item);
+    }
   }
 
   //  - Czy to to samo?
   // deleteTodo(item) {
   //   this.items.remove(item);
   // }
+
+  updateTodo = (key, isDone) => {
+    this.items.update(key, { isDone: isDone});
+  }
 
   ionViewDidLoad() {
     console.log('Jestes w Todo Page');

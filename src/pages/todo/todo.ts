@@ -38,7 +38,6 @@ export class TodoPage {
 
     updateTodo = (key, isDone) => {
         this.items.update(key, { isDone: isDone });
-          this.showMessage('Zadanie zostalo updateTodo', 'toast-delete');
 
     }
 

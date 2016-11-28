@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { AngularFire } from 'angularfire2';
+import { ProfilePage } from '../profile/profile';
+//import firebase from 'firebase';
 
 @Component({
   selector: 'page-home',
@@ -9,9 +11,15 @@ import { AngularFire } from 'angularfire2';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public af: AngularFire) { }
+  constructor(public navCtrl: NavController, public af: AngularFire) {
+    this.navCtrl = navCtrl;
+   }
 
 
+
+  goToProfile() {
+    this.navCtrl.push(ProfilePage);
+  }
 
   goToLoginPage() {
     this.navCtrl.push(LoginPage);

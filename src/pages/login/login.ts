@@ -15,11 +15,11 @@ import { EmailValidator } from '../../validators/email';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  public loginForm: any;
+  loginForm: any;
   emailChanged: boolean = false;
   passwordChanged: boolean = false;
   submitAttempt: boolean = false;
-  public loading: any;
+  loading: any;
 
   constructor(public nav: NavController, public authData: AuthData,
     public formBuilder: FormBuilder, public alertCtrl: AlertController,

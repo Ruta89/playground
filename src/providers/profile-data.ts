@@ -5,7 +5,6 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 
-
 @Injectable()
 export class ProfileData {
   // We'll use this to create a database reference to the userProfile node.

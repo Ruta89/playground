@@ -17,7 +17,7 @@ export class SignupPage {
   loading: any;
 
 
-  constructor(public nav: NavController, public authData: AuthData, public formBuilder: FormBuilder,
+  constructor(public navCtrl: NavController, public authData: AuthData, public formBuilder: FormBuilder,
     public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
 
     this.signupForm = formBuilder.group({
@@ -47,7 +47,7 @@ export class SignupPage {
       console.log(this.signupForm.value);
     } else {
       this.authData.signupUser(this.signupForm.value.email, this.signupForm.value.password).then(() => {
-        this.nav.setRoot(HomePage);
+        this.navCtrl.setRoot(HomePage);
       }, (error) => {
         this.loading.dismiss().then( () => {
           var errorMessage: string = error.message;

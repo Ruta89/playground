@@ -2,6 +2,7 @@ import { NavController, LoadingController, AlertController } from 'ionic-angular
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthData } from '../../providers/auth-data';
+// import { LoginPage } from '../login/login';
 import { EmailValidator } from '../../validators/email';
 
 @Component({
@@ -9,7 +10,7 @@ import { EmailValidator } from '../../validators/email';
   templateUrl: 'reset-password.html',
 })
 export class ResetPasswordPage {
-  public resetPasswordForm;
+  resetPasswordForm: any;
   emailChanged: boolean = false;
   passwordChanged: boolean = false;
   submitAttempt: boolean = false;
@@ -46,7 +47,7 @@ export class ResetPasswordPage {
     } else {
       this.authData.resetPassword(this.resetPasswordForm.value.email).then((user) => {
         let alert = this.alertCtrl.create({
-          message: "We just sent you a reset link to your email",
+          message: "Wysle ci na emaila linka dzieki ktoremu zresetujesz haslo",
           buttons: [
             {
               text: "Ok",

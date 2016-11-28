@@ -1,6 +1,10 @@
 {
-  "name": "debtTracker",
+  "name": "playGround64",
   "app_id": "fdef060f",
+  "typescript": true,
   "v2": true,
-  "typescript": true
+  "watchPatterns": [
+    "www/js/*",
+    "!www/css/**/*"
+  ]
 }

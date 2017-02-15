@@ -6,11 +6,47 @@
 
 
 <ion-content padding>
-<h2>Zrobić</h2>
-<p>
-  Lista todo co zrobic, co zrobione.
-</p>
-<p>
-  GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice GKS Katowice
-</p>
+
+<h2>Todo - czyli lista rzeczy do zrobienia</h2>
+
+<!-- <ul>
+  <li class="text" *ngFor="let item of items | async">
+    {{item.$value}}
+  </li>
+</ul> -->
+
+<ion-list>
+  <ion-item>
+    <ion-label floating>ToDo:</ion-label>
+    <ion-input type="text" [(ngModel)]="newTodo"></ion-input>
+  </ion-item>
+</ion-list>
+<button ion-button full (click)="addTodo(newTodo)" (click)="newTodo = '' ">Dodaj zadanie</button>
+
+<ion-list no-lines>
+
+  <ion-item-sliding *ngFor="let i = index; let item of items | async">
+    <ion-item>
+      <ion-checkbox color="dark" [(ngModel)]="item.isDone" (ionChange)="updateTodo(item.$key, item.isDone)" item-left></ion-checkbox>
+
+      <ion-label *ngIf="!item.isDone">{{item.text}}</ion-label>
+
+      <ion-label *ngIf="item.isDone">
+        <del>{{item.text}}</del>
+      </ion-label>
+    </ion-item>
+
+    <ion-item-options side="right">
+
+      <button ion-button (click)="deleteTodo(item)" color="danger">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+
+    </ion-item-options>
+
+  </ion-item-sliding>
+ <ion-item-divider color="light">przesuń w lewo by usunąć</ion-item-divider>
+
+</ion-list>
+
 </ion-content>

@@ -1,3 +1,39 @@
 page-home {
 
+  a:link {
+    color: #696;
+    text-decoration: none;
+    background-color: transparent;
+  }
+
+  a:visited {
+    color: #699;
+    text-decoration: none;
+    background-color: transparent;
+  }
+
+  a:hover {
+    color: #c93;
+    text-decoration: underline;
+    background-color: transparent;
+  }
+
+  a:active {
+    color: #900;
+    text-decoration: underline;
+    background-color: transparent;
+  }
+
+  .background-image {
+    background-image: url('../assets/img/spodek.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 50vw;
+  }
+
+  .main-content {
+    padding: 20px;
+    background-color: white;
+    position: absolute;
+  }
 }

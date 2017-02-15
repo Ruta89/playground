@@ -1,3 +1,16 @@
 page-start {
 
 }
+
+
+.toast-success {
+  .toast-container{
+    background-color: green;
+  }
+}
+
+.toast-delete {
+  .toast-container{
+    background-color: red!important;
+  }
+}

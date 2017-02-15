@@ -1,10 +1,6 @@
 {
-  "name": "playGround64",
-  "app_id": "fdef060f",
-  "typescript": true,
+  "name": "playgroundd",
+  "app_id": "",
   "v2": true,
-  "watchPatterns": [
-    "www/js/*",
-    "!www/css/**/*"
-  ]
+  "typescript": true
 }

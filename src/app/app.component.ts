@@ -2,10 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
-import { HomePage } from '../pages/home/home';
 
 // import { LoginPage } from '../pages/login/login';
-// import { TabsPage } from '../pages/tabs/tabs';
+ import { TabsPage } from '../pages/tabs/tabs';
 // import { SignupPage } from '../pages/signup/signup';
 // import { PracaPage } from '../pages/praca/praca';
 // import { ProfilePage } from '../pages/profile/profile';
@@ -34,7 +33,7 @@ export class MyApp {
     this.initializeApp();
 
     this.pages = [
-      { title: 'Start', icon: 'home', component: HomePage },
+      { title: 'Start', icon: 'home', component: TabsPage },
       { title: 'Inwestycje', icon: 'list-box', component: InwestycjePage },
       { title: 'Map', icon: 'list-box', component: MapPage },
       { title: 'List', icon: 'list-box', component: ListPage },
@@ -45,7 +44,7 @@ export class MyApp {
       if (user) {
         this.rootPage = LandingPage; // bylo HomePage
       } else {
-        this.rootPage = HomePage;   // bylo LoginPage
+        this.rootPage = TabsPage;
       }
     });
   }

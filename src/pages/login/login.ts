@@ -1,13 +1,14 @@
-import {
-  NavController,
-  LoadingController,
-  AlertController } from 'ionic-angular';
 import { Component } from '@angular/core';
+import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthData } from '../../providers/auth-data';
-import { HomePage } from '../home/home';
+
+//import { HomePage } from '../home/home';
+import { InwestycjePage } from '../inwestycje/inwestycje';
 import { SignupPage } from '../signup/signup';
 import { ResetPasswordPage } from '../reset-password/reset-password';
+
+import { AuthData } from '../../providers/auth-data';
+
 import { EmailValidator } from '../../validators/email';
 
 @Component({
@@ -21,44 +22,48 @@ export class LoginPage {
   submitAttempt: boolean = false;
   loading: any;
 
-  constructor(public nav: NavController, public authData: AuthData,
-    public formBuilder: FormBuilder, public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController,
+    public authData: AuthData,
+    public formBuilder: FormBuilder,
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController) {
+    this.loginForm = formBuilder.group({
+      email: ['', Validators.compose([Validators.required,
+        EmailValidator.isValid])],
+      password: ['', Validators.compose([Validators.minLength(6),
+        Validators.required])]
+    });
 
-      this.loginForm = formBuilder.group({
-        email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
-        password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
-      });
+  } // constructor
 
-    }
-
-    elementChanged(input){
+  elementChanged(input) {
     let field = input.inputControl.name;
     this[field + "Changed"] = true;
   }
 
-  loginUser(){
+  loginUser() {
     this.submitAttempt = true;
 
-    if (!this.loginForm.valid){
+    if (!this.loginForm.valid) {
       console.log(this.loginForm.value);
     } else {
-      this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password).then( authData => {
-        this.nav.setRoot(HomePage);
-      }, error => {
-        this.loading.dismiss().then( () => {
-          let alert = this.alertCtrl.create({
-            message: error.message,
-            buttons: [
-              {
-                text: "Ok",
-                role: 'cancel'
-              }
-            ]
+      this.authData.loginUser(this.loginForm.value.email,
+        this.loginForm.value.password).then(authData => {
+          this.navCtrl.setRoot(InwestycjePage);
+        }, error => {
+          this.loading.dismiss().then(() => {
+            let alert = this.alertCtrl.create({
+              message: error.message,
+              buttons: [
+                {
+                  text: "Ok",
+                  role: 'cancel'
+                }
+              ]
+            });
+            alert.present();
           });
-          alert.present();
         });
-      });
 
       this.loading = this.loadingCtrl.create({
         dismissOnPageChange: true,
@@ -67,14 +72,16 @@ export class LoginPage {
     }
   }
 
-  goToResetPassword(){
-    this.nav.push(ResetPasswordPage);
+  goToResetPassword() {
+    this.navCtrl.push(ResetPasswordPage);
   }
 
-  createAccount(){
-    this.nav.push(SignupPage);
+  createAccount() {
+    this.navCtrl.push(SignupPage);
   }
 
-
+  ionViewDidLoad() {
+    console.log('Hello LoginPage Page');
+  }
 
 }

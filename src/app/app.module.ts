@@ -1,5 +1,5 @@
-import { NgModule} from '@angular/core';
-import { IonicApp, IonicModule} from 'ionic-angular';
+import { NgModule, ErrorHandler} from '@angular/core';
+import { IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
@@ -12,12 +12,27 @@ import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { SignupPage } from '../pages/signup/signup';
 import { ProfilePage } from '../pages/profile/profile';
 
+import { LandingPage } from '../pages/landing/landing';
+import { InwestycjeDetailPage } from '../pages/inwestycje-detail/inwestycje-detail';
+import { InwestycjeAddPage } from '../pages/inwestycje-add/inwestycje-add';
+import { MapPage } from '../pages/map/map';
+import { ListPage } from '../pages/list/list';
+import { UploadPage } from '../pages/upload/upload';
+
 // Importing provider
 import { AuthData } from '../providers/auth-data';
 import { ProfileData } from '../providers/profile-data';
+import { InwestData } from '../providers/inwest-data';
+import { Locations } from '../providers/locations';
+import { GoogleMaps } from '../providers/google-maps';
+import { Connectivity } from '../providers/connectivity';
 // Import the AF2 Module
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
+//  directive
+import { ElasticHeader } from '../components/elastic-header/elastic-header';
+
+//gy
 // AF2 Settings
 export const firebaseConfig = {
       apiKey: "AIzaSyC1qu6GF1LX9MkgB7SS3pKJAfifvcMqojM",
@@ -43,7 +58,15 @@ const myFirebaseAuthConfig = {
     LoginPage,
     ResetPasswordPage,
     SignupPage,
-    ProfilePage
+    ProfilePage,
+    LandingPage,
+    InwestycjeDetailPage,
+    InwestycjeAddPage,
+    MapPage,
+    ListPage,
+    UploadPage,
+    ElasticHeader
+
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -62,9 +85,23 @@ const myFirebaseAuthConfig = {
     LoginPage,
     ResetPasswordPage,
     SignupPage,
-    ProfilePage
+    ProfilePage,
+    LandingPage,
+    InwestycjeDetailPage,
+    InwestycjeAddPage,
+    MapPage,
+    ListPage,
+    UploadPage
   ],
   // providers: AuthData, ProfileData, Data
-  providers: [AuthData, ProfileData]
+  providers: [
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AuthData, 
+    ProfileData,
+    InwestData,
+    Location,
+    GoogleMaps,
+    Connectivity
+    ]
 })
 export class AppModule {}

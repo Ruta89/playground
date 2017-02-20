@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, LoadingController } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
@@ -9,9 +9,15 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 export class TodoPage {
     items: FirebaseListObservable<any[]>;
     newTodo: string;
+    ladowanie: any;
 
-    constructor(public navCtrl: NavController, af: AngularFire, public toastCtrl: ToastController) {
-        this.items = af.database.list('/items');
+    constructor(public navCtrl: NavController, public af: AngularFire, public toastCtrl: ToastController, public loadingCtrl: LoadingController) {
+
+        this.ladowanie = this.loadingCtrl.create({
+            content: 'Proszę czekać...'
+        });
+        this.ladowanie.present();
+        this.getItems();
     }
 
     addTodo = (item) => {
@@ -50,6 +56,10 @@ export class TodoPage {
       toast.present();
     }
 
+    getItems() {
+        this.items = this.af.database.list('/items')
+        this.ladowanie.dismiss();
+    }
 
     ionViewDidLoad() {
         console.log('Jestes w Todo Page');

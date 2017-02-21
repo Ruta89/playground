@@ -3,20 +3,23 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 
-// import { LoginPage } from '../pages/login/login';
- import { TabsPage } from '../pages/tabs/tabs';
-// import { SignupPage } from '../pages/signup/signup';
-// import { PracaPage } from '../pages/praca/praca';
-// import { ProfilePage } from '../pages/profile/profile';
-
-import { LandingPage } from '../pages/landing/landing';
+import { LoginPage } from '../pages/login/login';
+import { TabsPage } from '../pages/tabs/tabs';
 import { InwestycjePage } from '../pages/inwestycje/inwestycje';
-import { MapPage } from '../pages/map/map';
 import { ListPage } from '../pages/list/list';
 import { UploadPage } from '../pages/upload/upload';
 
+import { HomeMapPage } from '../pages/homemap/homemap';
+import { TablicaPage } from '../pages/tablica/tablica';
+
 // Importing provider
 import { AngularFire } from 'angularfire2';
+
+export interface PageInterface {
+  title: string;
+  icon: string;
+  component: any;
+}
 
 @Component({
   templateUrl: 'app.html'
@@ -26,28 +29,32 @@ export class MyApp {
 
   rootPage: any;
 
-  pages: Array<{ title: string, icon: string, component: any }>;
 
-  constructor(public platform: Platform, af: AngularFire) {
+  constructor(public platform: Platform, public af: AngularFire) {
 
+    const authListener = af.auth.subscribe( user => {
+          if (user){
+            this.rootPage = TabsPage;
+            authListener.unsubscribe();
+          } else {
+            this.rootPage = LoginPage;
+            authListener.unsubscribe();
+          }
+    });
     this.initializeApp();
 
-    this.pages = [
-      { title: 'Start', icon: 'home', component: TabsPage },
-      { title: 'Inwestycje', icon: 'list-box', component: InwestycjePage },
-      { title: 'Map', icon: 'list-box', component: MapPage },
-      { title: 'List', icon: 'list-box', component: ListPage },
-      { title: 'Upload', icon: 'list-box', component: UploadPage }
-    ];
-
+  
+/*
     af.auth.subscribe(user => {
       if (user) {
-        this.rootPage = LandingPage; // bylo HomePage
+        this.rootPage = LoginPage; 
       } else {
         this.rootPage = TabsPage;
       }
     });
+      */
   }
+
 
     initializeApp() {
 
@@ -59,7 +66,16 @@ export class MyApp {
     });
   }
 
-      openPage(page) {
+    pages: PageInterface[] = [
+      { title: 'Start', icon: 'home', component: TabsPage },
+      { title: 'Tablica', icon: 'pen', component: TablicaPage },
+      { title: 'Inwestycje', icon: 'list-box', component: InwestycjePage },
+      { title: 'MapHome', icon: 'list-box', component: HomeMapPage },
+      { title: 'List', icon: 'list-box', component: ListPage },
+      { title: 'Upload', icon: 'list-box', component: UploadPage }
+    ];
+
+  openPage(page: PageInterface) {
     this.nav.setRoot(page.component);
   }
   

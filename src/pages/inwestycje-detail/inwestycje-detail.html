@@ -13,38 +13,39 @@
 
 
 <ion-content padding>
-  <!-- <img [src]="bill.picture || placeholderPicture" (click)="uploadPicture(bill?.$key)" /> -->
-  <img src="assets/img/inwest/{{bill.zdjecieMin}}" (click)="uploadPicture(bill?.$key)" />
-  <span *ngIf="!bill.picture">Kliknij na obrazek aby wgrac swoje zdjecie</span>
+  <img [src]="bill.image || placeholderPicture" (click)="uploadPicture(bill?.$key)" />
+  <span *ngIf="!bill.image">
+    Click the image to upload a picture of your debt/bill
+</span>
 
   <ion-card>
-  <ion-card-header>
-    Informacje o inwestycji
-  </ion-card-header>
+    <ion-card-header>
+      Informacje o inwestycji
+    </ion-card-header>
 
-  <ion-list>
-    <ion-item>
-      <ion-icon color="secondary" name="information-circle" item-left></ion-icon>
-      {{bill?.name}}
-    </ion-item>
+    <ion-list>
+      <ion-item>
+        <ion-icon color="secondary" name="information-circle" item-left></ion-icon>
+        {{bill?.name}}
+      </ion-item>
 
-    <ion-item>
-      <ion-icon color="favorite" name="cash" item-left></ion-icon>
-      {{bill?.amount}}
-    </ion-item>
+      <ion-item>
+        <ion-icon color="favorite" name="cash" item-left></ion-icon>
+        {{bill?.amount}}
+      </ion-item>
 
-    <ion-item>
+      <ion-item>
         <ion-icon color="favorite" name="map" item-left></ion-icon>
         {{bill?.adres}}
       </ion-item>
 
       <ion-item>
-          <ion-icon color="favorite" name="information-circle" item-left></ion-icon>
-          Opis:
-        </ion-item>
-        <p text-align="justify">
-          {{bill?.opis}}
-        </p>
+        <ion-icon color="favorite" name="information-circle" item-left></ion-icon>
+        Opis:
+      </ion-item>
+      <p text-align="justify">
+        {{bill?.opis}}
+      </p>
 
       <ion-item>
         <ion-icon color="secondary" name="calendar" item-left></ion-icon>
@@ -55,17 +56,17 @@
         <strong>Koniec: {{bill?.endBuildDate}}</strong>
       </ion-item>
 
-    <ion-item *ngIf="bill?.startBuild == true">
-      <ion-icon color="favorite" name="checkmark" item-left></ion-icon>
-      Rozpoczeto budowe.
-    </ion-item>
+      <ion-item *ngIf="bill?.startBuild == true">
+        <ion-icon color="favorite" name="checkmark" item-left></ion-icon>
+        Rozpoczeto budowe.
+      </ion-item>
 
-    <ion-item *ngIf="bill?.startBuild == false">
-      <ion-icon color="danger" name="timer" item-left></ion-icon>
-     Nie rozpoczeto budowy
-    </ion-item>
-  </ion-list>
-</ion-card>
+      <ion-item *ngIf="bill?.startBuild == false">
+        <ion-icon color="danger" name="timer" item-left></ion-icon>
+        Nie rozpoczeto budowy
+      </ion-item>
+    </ion-list>
+  </ion-card>
 
 
 </ion-content>

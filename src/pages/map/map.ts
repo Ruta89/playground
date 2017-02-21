@@ -11,7 +11,7 @@ export class MapPage {
 
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
-  
+
   constructor(public navCtrl: NavController, public maps: GoogleMaps, public platform: Platform, public locations: Locations) {
 
   }
@@ -19,11 +19,7 @@ export class MapPage {
   ionViewDidLoad() {
 
     this.platform.ready().then(() => {
-
       let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement);
-
     });
-
   }
-
 }

@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import { FormBuilder, Validators } from '@angular/forms';
 
-//import { HomePage } from '../home/home';
-import { InwestycjePage } from '../inwestycje/inwestycje';
+import { TabsPage } from '../tabs/tabs';
 import { SignupPage } from '../signup/signup';
 import { ResetPasswordPage } from '../reset-password/reset-password';
 
@@ -29,9 +28,9 @@ export class LoginPage {
     public alertCtrl: AlertController) {
     this.loginForm = formBuilder.group({
       email: ['', Validators.compose([Validators.required,
-        EmailValidator.isValid])],
+      EmailValidator.isValid])],
       password: ['', Validators.compose([Validators.minLength(6),
-        Validators.required])]
+      Validators.required])]
     });
 
   } // constructor
@@ -41,15 +40,16 @@ export class LoginPage {
     this[field + "Changed"] = true;
   }
 
-  loginUser() {
-    this.submitAttempt = true;
 
+  loginUser() {
     if (!this.loginForm.valid) {
       console.log(this.loginForm.value);
     } else {
       this.authData.loginUser(this.loginForm.value.email,
-        this.loginForm.value.password).then(authData => {
-          this.navCtrl.setRoot(InwestycjePage);
+        this.loginForm.value.password).then(() => {
+          this.loading.dismiss().then(() => {
+            this.navCtrl.setRoot(TabsPage);
+          });
         }, error => {
           this.loading.dismiss().then(() => {
             let alert = this.alertCtrl.create({
@@ -65,13 +65,10 @@ export class LoginPage {
           });
         });
 
-      this.loading = this.loadingCtrl.create({
-        dismissOnPageChange: true,
-      });
+      this.loading = this.loadingCtrl.create();
       this.loading.present();
     }
   }
-
   goToResetPassword() {
     this.navCtrl.push(ResetPasswordPage);
   }

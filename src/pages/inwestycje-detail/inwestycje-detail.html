@@ -1,0 +1,72 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{bill?.name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showOptions(bill?.$key)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <img [src]="bill.image || placeholderPicture" (click)="uploadPicture(bill?.$key)" />
+  <span *ngIf="!bill.image">
+    Click the image to upload a picture of your debt/bill
+</span>
+
+  <ion-card>
+    <ion-card-header>
+      Informacje o inwestycji
+    </ion-card-header>
+
+    <ion-list>
+      <ion-item>
+        <ion-icon color="secondary" name="information-circle" item-left></ion-icon>
+        {{bill?.name}}
+      </ion-item>
+
+      <ion-item>
+        <ion-icon color="favorite" name="cash" item-left></ion-icon>
+        {{bill?.amount}}
+      </ion-item>
+
+      <ion-item>
+        <ion-icon color="favorite" name="map" item-left></ion-icon>
+        {{bill?.adres}}
+      </ion-item>
+
+      <ion-item>
+        <ion-icon color="favorite" name="information-circle" item-left></ion-icon>
+        Opis:
+      </ion-item>
+      <p text-align="justify">
+        {{bill?.opis}}
+      </p>
+
+      <ion-item>
+        <ion-icon color="secondary" name="calendar" item-left></ion-icon>
+        <strong>Start: {{bill?.dueDate}}</strong>
+      </ion-item>
+      <ion-item>
+        <ion-icon color="secondary" name="calendar" item-left></ion-icon>
+        <strong>Koniec: {{bill?.endBuildDate}}</strong>
+      </ion-item>
+
+      <ion-item *ngIf="bill?.startBuild == true">
+        <ion-icon color="favorite" name="checkmark" item-left></ion-icon>
+        Rozpoczeto budowe.
+      </ion-item>
+
+      <ion-item *ngIf="bill?.startBuild == false">
+        <ion-icon color="danger" name="timer" item-left></ion-icon>
+        Nie rozpoczeto budowy
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+
+</ion-content>

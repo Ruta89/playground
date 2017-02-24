@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar color="zielony">
+    <ion-title>Tablica</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addPost()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <!--<div>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Title</ion-label>
+      <ion-input type="text"[(ngModel)]="post.title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Body</ion-label>
+      <ion-input type="text" [(ngModel)]="post.body"></ion-input>
+    </ion-item>
+    <button ion-button full (click)="submit()">Submit</button>
+  </ion-list>
+  </div>-->
+
+
+  <polaczenie></polaczenie>
+  <ion-card *ngFor="let card of posts | async">
+    <ion-card-content>
+      <ion-card-title>
+        {{card.title}}
+      </ion-card-title>
+      <p>
+        {{card.body}}
+      </p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

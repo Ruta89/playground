@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>New Bill</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="newBillForm" (submit)="createBill()" novalidate>
+    <ion-item>
+      <ion-label stacked>Nazwa inwestycji</ion-label>
+      <ion-input #name formControlName="name" type="text" (change)="elementChanged(name)"
+      placeholder="Jak nazywa sie inwestycje ktora chcesz dodac?"
+      [class.invalid]="!newBillForm.controls.name.valid && (nameChanged || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!newBillForm.controls.name.valid  && (nameChanged || submitAttempt)">
+      <p>Wprowadz nazwe inwestycji.</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Budzet</ion-label>
+      <ion-input #amount formControlName="amount" type="number" (change)="elementChanged(amount)"
+      placeholder="Jaki jest koszt inwestycji"
+      [class.invalid]="!newBillForm.controls.amount.valid && (amountChanged || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!newBillForm.controls.amount.valid  && (amountChanged || submitAttempt)">
+      <p>Jaki jest koszt budowy</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Adres</ion-label>
+      <ion-input #adres formControlName="adres" type="text" (change)="elementChanged(adres)"
+      placeholder="Adres inwestycji"
+      [class.invalid]="!newBillForm.controls.adres.valid && (adresChanged || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!newBillForm.controls.adres.valid  && (adresChanged || submitAttempt)">
+      <p>Musisz podac adres</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Zdjecie miniaturka</ion-label>
+      <ion-input #zdjecieMin formControlName="zdjecieMin" type="text" (change)="elementChanged(zdjecieMin)"
+      placeholder="Adres inwestycji"
+      [class.invalid]="!newBillForm.controls.zdjecieMin.valid && (zdjecieMinChanged || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!newBillForm.controls.zdjecieMin.valid  && (zdjecieMinChanged || submitAttempt)">
+      <p>Musisz dodac miniaturke</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Opis</ion-label>
+      <ion-input #opis formControlName="opis" type="text" (change)="elementChanged(opis)"
+      placeholder="Opis inwestycji"
+      [class.invalid]="!newBillForm.controls.opis.valid && (opisChanged || submitAttempt)"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!newBillForm.controls.opis.valid  && (opisChanged || submitAttempt)">
+      <p>Wprowadz opis inwestycji</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Data rozpoczecia budowy</ion-label>
+      <ion-datetime displayFormat="D MMM, YY" pickerFormat="DD MMM YYYY"
+        formControlName="dueDate" max="2020-10-31"
+      [class.invalid]="!newBillForm.controls.dueDate.valid && (dueDateChanged || submitAttempt)">
+    </ion-datetime>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!newBillForm.controls.dueDate.valid  && (dueDateChanged || submitAttempt)">
+      <p>Data rozpoczecia budowy?</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Data ukonczenia budowy</ion-label>
+      <ion-datetime displayFormat="D MMM, YY" pickerFormat="DD MMM YYYY"
+        formControlName="endBuildDate" max="2030-10-31"
+      [class.invalid]="!newBillForm.controls.endBuildDate.valid && (endBuildChanged || submitAttempt)">
+    </ion-datetime>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!newBillForm.controls.endBuildDate.valid  && (endBuildChanged || submitAttempt)">
+      <p>Kiedy jest planowana data ukonczenia inwestycji</p>
+    </ion-item>
+
+    <button ion-button block type="submit">
+      Dodaj nowa inwestycje
+    </button>
+  </form>
+</ion-content>

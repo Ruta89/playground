@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>
-      Login
+      Logowanie
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -12,40 +12,40 @@
     <ion-item>
       <ion-label stacked>Email</ion-label>
       <ion-input #email formControlName="email" type="email" (change)="elementChanged(email)"
-        placeholder="Your email address"
+        placeholder="Twoj adres email"
         [class.invalid]="!loginForm.controls.email.valid &&
           (emailChanged || submitAttempt)"></ion-input>
     </ion-item>
     <ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  &&
       (emailChanged || submitAttempt)">
-      <p>Please enter a valid email.</p>
+      <p>Wprowadz poprawny adres email.</p>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>Password</ion-label>
+      <ion-label stacked>Haslo</ion-label>
       <ion-input #password formControlName="password" type="password"
         (change)="elementChanged(password)"
-        placeholder="Your password"
+        placeholder="Twoje haslo"
         [class.invalid]="!loginForm.controls.password.valid &&
           (passwordChanged || submitAttempt)"></ion-input>
     </ion-item>
     <ion-item class="error-message" *ngIf="!loginForm.controls.password.valid  &&
       (passwordChanged || submitAttempt)">
-      <p>Your password needs more than 6 characters.</p>
+      <p>Twoje haslo musi miec wiecej niz 6 znakow.</p>
     </ion-item>
 
     <button ion-button block type="submit">
-      Login
+      Loguj
     </button>
 
   </form>
 
   <button ion-button block clear (click)="goToResetPassword()">
-    I forgot my password :-(
+    Zapomnialem hasla :(
   </button>
 
   <button ion-button block clear (click)="createAccount()">
-    Create a new account
+    Zaloz konto
   </button>
 
 </ion-content>

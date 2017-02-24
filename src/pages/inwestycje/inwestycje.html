@@ -1,13 +1,59 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Inwestycje</ion-title>
+  <ion-navbar color="zielony">
+    <button ion-button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Inwestycje
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="createBill()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Planowane Inwestycje
+    </ion-list-header>
+    <ion-item *ngFor="let bill of billList | async" (click)="moreBillOptions(bill.$key)" [class.hide]="bill.startBuild == true">
+      <ion-row>
+        <ion-col width-75>
+      <ion-icon name="timer" color="danger" item-left></ion-icon>
+      <h2>{{bill.name}}</h2>
+      <h3>Total: <strong>${{bill.amount}}</strong></h3>
+      <p>
+        Adres: <strong>{{bill.adres}}</strong>
+      </p>
+      <p>Data rozpoczecie budowy: <strong>{{bill.dueDate}}</strong></p>
+      <p>Data zakonczenia budowy: <strong>{{bill.endBuildDate}}</strong></p>
+      </ion-col>
+      <ion-col width-25>
+        <img src="assets/img/inwest/{{bill.zdjecieMin}}" />
+      </ion-col>
+    </ion-row>
+    </ion-item>
 
-<ion-content padding>
-  <h3>Inwestycje</h3>
+  </ion-list>
 
+  <ion-list>
+    <ion-list-header>
+      Zaczęte inwestycje
+    </ion-list-header>
+    <ion-item *ngFor="let bill of billList | async" (click)="goToPaidBill(bill.$key)" [class.hide]="bill.startBuild == false">
+      <ion-icon name="checkmark" color="favorite" item-left></ion-icon>
+      <h2>{{bill.name}}</h2>
+      <h3>Total: <strong>${{bill.amount}}</strong></h3>
+      <p>
+        Adres: <strong>{{bill.adres}}</strong>
+      </p>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button block (click)="logMeOut()">
+    Wyloguj sie - do testowania
+  </button>
 </ion-content>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Connectivity } from './connectivity';
-import { Geolocation } from 'ionic-native';
+import { Geolocation } from '@ionic-native/geolocation';
 
 declare var google;
 
@@ -16,7 +16,7 @@ export class GoogleMaps {
   markers: any = [];
   apiKey: string = "AIzaSyBSVk30IG-5FCrxhO3qYSAfZF-67sLkKDc";
 
-  constructor(public connectivityService: Connectivity) {
+  constructor(public connectivityService: Connectivity, private geolocation: Geolocation) {
 
   }
 
@@ -33,12 +33,12 @@ export class GoogleMaps {
 
     return new Promise((resolve) => {
 
-      if(typeof google == "undefined" || typeof google.maps == "undefined"){
+      if (typeof google == "undefined" || typeof google.maps == "undefined") {
 
         console.log("Google maps JavaScript needs to be loaded.");
         this.disableMap();
 
-        if(this.connectivityService.isOnline()){
+        if (this.connectivityService.isOnline()) {
 
           window['mapInit'] = () => {
 
@@ -52,7 +52,7 @@ export class GoogleMaps {
           let script = document.createElement("script");
           script.id = "googleMaps";
 
-          if(this.apiKey){
+          if (this.apiKey) {
             script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=mapInit';
           } else {
             script.src = 'http://maps.google.com/maps/api/js?callback=mapInit';
@@ -64,7 +64,7 @@ export class GoogleMaps {
       }
       else {
 
-        if(this.connectivityService.isOnline()){
+        if (this.connectivityService.isOnline()) {
           this.initMap();
           this.enableMap();
         }
@@ -86,7 +86,7 @@ export class GoogleMaps {
 
     return new Promise((resolve) => {
 
-      Geolocation.getCurrentPosition().then((position) => {
+      this.geolocation.getCurrentPosition().then((position) => {
 
         // UNCOMMENT FOR NORMAL USE
         //let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -110,7 +110,7 @@ export class GoogleMaps {
 
   disableMap(): void {
 
-    if(this.pleaseConnect){
+    if (this.pleaseConnect) {
       this.pleaseConnect.style.display = "block";
     }
 
@@ -118,7 +118,7 @@ export class GoogleMaps {
 
   enableMap(): void {
 
-    if(this.pleaseConnect){
+    if (this.pleaseConnect) {
       this.pleaseConnect.style.display = "none";
     }
 
@@ -132,11 +132,11 @@ export class GoogleMaps {
 
       setTimeout(() => {
 
-        if(typeof google == "undefined" || typeof google.maps == "undefined"){
+        if (typeof google == "undefined" || typeof google.maps == "undefined") {
           this.loadGoogleMaps();
         }
         else {
-          if(!this.mapInitialised){
+          if (!this.mapInitialised) {
             this.initMap();
           }
 

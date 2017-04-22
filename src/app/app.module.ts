@@ -1,5 +1,6 @@
-import { NgModule, ErrorHandler} from '@angular/core';
-import { IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
@@ -30,6 +31,16 @@ import { GoogleMaps } from '../providers/google-maps';
 import { Connectivity } from '../providers/connectivity';
 import { FeedApi } from '../providers/feed-api';
 
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+import { Camera } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
+import { FilePath } from '@ionic-native/file-path';
+import { Transfer } from '@ionic-native/transfer';
+import { Network } from '@ionic-native/network';
+import { Geolocation } from '@ionic-native/geolocation';
+import { HttpModule } from '@angular/http';
+
 // Import the AF2 Module
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
@@ -40,11 +51,11 @@ import { PolaczenieComponent } from '../components/polaczenie/polaczenie';
 
 // AF2 Settings
 export const firebaseConfig = {
-    apiKey: "AIzaSyBAtxuuk_5SBqaKI32UROdnnFbD7Sw9Rbg",
-    authDomain: "friendlychat-5ffbc.firebaseapp.com",
-    databaseURL: "https://friendlychat-5ffbc.firebaseio.com",
-    storageBucket: "friendlychat-5ffbc.appspot.com",
-    messagingSenderId: "30536843314"  
+  apiKey: "AIzaSyBAtxuuk_5SBqaKI32UROdnnFbD7Sw9Rbg",
+  authDomain: "friendlychat-5ffbc.firebaseapp.com",
+  databaseURL: "https://friendlychat-5ffbc.firebaseio.com",
+  storageBucket: "friendlychat-5ffbc.appspot.com",
+  messagingSenderId: "30536843314"
 };
 
 const myFirebaseAuthConfig = {
@@ -77,9 +88,11 @@ const myFirebaseAuthConfig = {
 
   ],
   imports: [
+    BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp, {
-        tabsPlacement: 'top'
-          }),
+      tabsPlacement: 'top'
+    }),
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],
   bootstrap: [IonicApp],
@@ -105,14 +118,22 @@ const myFirebaseAuthConfig = {
   ],
   // providers: AuthData, ProfileData, Data
   providers: [
+    StatusBar,
+    SplashScreen,
+    Camera,
+    File,
+    FilePath,
+    Transfer,
+    Network,
+    Geolocation,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthData, 
+    AuthData,
     ProfileData,
     InwestData,
     Locations,
     GoogleMaps,
     Connectivity,
     FeedApi
-    ]
+  ]
 })
-export class AppModule {}
+export class AppModule { }

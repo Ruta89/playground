@@ -3,8 +3,8 @@ import { NavController, ToastController, LoadingController } from 'ionic-angular
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
-  selector: 'page-todo',
-  templateUrl: 'todo.html'
+    selector: 'page-todo',
+    templateUrl: 'todo.html'
 })
 export class TodoPage {
     items: FirebaseListObservable<any[]>;
@@ -12,12 +12,7 @@ export class TodoPage {
     ladowanie: any;
 
     constructor(public navCtrl: NavController, public af: AngularFire, public toastCtrl: ToastController, public loadingCtrl: LoadingController) {
-
-        this.ladowanie = this.loadingCtrl.create({
-            content: 'Proszę czekać...'
-        });
-        this.ladowanie.present();
-        this.getItems();
+        this.pokazladowanie();
     }
 
     addTodo = (item) => {
@@ -47,22 +42,36 @@ export class TodoPage {
 
     }
 
-    public showMessage(message: string, cssClass: string ){
-       let toast = this.toastCtrl.create({
-        message: message,
-        cssClass: cssClass,
-        duration: 3000
-      });
-      toast.present();
+    public showMessage(message: string, cssClass: string) {
+        let toast = this.toastCtrl.create({
+            message: message,
+            cssClass: cssClass,
+            duration: 3000
+        });
+        toast.present();
     }
 
-    getItems() {
-        this.items = this.af.database.list('/items')
-        this.ladowanie.dismiss();
+    getItems(): any {
+        console.log('getItems() ');
+        this.items = this.af.database.list('/items');
+    }
+    pokazladowanie() {
+
+        let loading = this.loadingCtrl.create({
+            content: 'Proszę czekać...'
+        });
+
+        loading.present();
+
+        setTimeout(() => {
+            loading.dismiss();
+        }, 1000);
+
     }
 
     ionViewDidLoad() {
-        console.log('Jestes w Todo Page');
+        console.log('Jestes w Todo Page ionViewDidLoad');
+        this.getItems();
     }
 
 }

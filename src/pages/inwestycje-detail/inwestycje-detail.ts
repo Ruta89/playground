@@ -4,10 +4,11 @@ import {
   NavParams,
   ActionSheetController,
   Platform,
-  AlertController } from 'ionic-angular';
+  AlertController
+} from 'ionic-angular';
 import { InwestData } from '../../providers/inwest-data';
 import { AuthData } from '../../providers/auth-data';
-import { Camera } from 'ionic-native';
+import { Camera } from '@ionic-native/camera';
 import { SignupPage } from '../signup/signup';
 
 @Component({
@@ -22,16 +23,17 @@ export class InwestycjeDetailPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform,
     public actionCtrl: ActionSheetController, public inwestData: InwestData, public authData: AuthData,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController, private camera: Camera) {
 
-    this.inwestData.getBill(this.navParams.get('billId')).subscribe( billSnap => {
+    this.inwestData.getBill(this.navParams.get('billId')).subscribe(billSnap => {
       this.bill = billSnap;
     });
 
   }
 
-  uploadPicture(billId){
-    if(this.authData.fireAuth().isAnonymous == true){
+
+  uploadPicture(billId): void {
+    if (this.authData.getUser().isAnonymous == true) {
       let alert = this.alertCtrl.create({
         message: "If you want to continue you'll need to provide an email and create a password",
         buttons: [
@@ -46,14 +48,14 @@ export class InwestycjeDetailPage {
       });
       alert.present();
     } else {
-      Camera.getPicture({
-        quality : 95,
-        destinationType : Camera.DestinationType.DATA_URL,
-        sourceType : Camera.PictureSourceType.CAMERA,
-        allowEdit : true,
-        encodingType: Camera.EncodingType.PNG,
-        targetWidth: 19200,
-        targetHeight: 12800,
+      this.camera.getPicture({
+        quality: 95,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        sourceType: this.camera.PictureSourceType.CAMERA,
+        allowEdit: true,
+        encodingType: this.camera.EncodingType.PNG,
+        targetWidth: 500,
+        targetHeight: 500,
         saveToPhotoAlbum: true
       }).then(imageData => {
         this.inwestData.takeBillPhoto(billId, imageData);
@@ -63,7 +65,7 @@ export class InwestycjeDetailPage {
     }
   }
 
-  showOptions(billId){
+  showOptions(billId) {
     let action = this.actionCtrl.create({
       title: 'Modify your bill',
       buttons: [
@@ -72,7 +74,7 @@ export class InwestycjeDetailPage {
           role: 'destructive',
           icon: !this.platform.is('ios') ? 'trash' : null,
           handler: () => {
-            this.inwestData.removeBill(billId).then( () => {
+            this.inwestData.removeBill(billId).then(() => {
               this.navCtrl.pop();
             });
           }

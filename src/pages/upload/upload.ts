@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
-import { Camera, File, Transfer, FilePath } from 'ionic-native';
+//import { Camera, File, Transfer, FilePath } from 'ionic-native';
+import { File } from '@ionic-native/file';
+import { Camera } from '@ionic-native/camera';
+import { FilePath } from '@ionic-native/file-path';
+import { Transfer } from '@ionic-native/transfer';
+//import { Transfer, FileUploadOptions, TransferObject } from '@ionic-native/transfer';
 
 declare var cordova: any;
 
@@ -12,7 +17,7 @@ export class UploadPage {
   lastImage: string = null;
   loading: Loading;
 
-  constructor(public navCtrl: NavController, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController, private file: File, private camera: Camera, private filePath: FilePath, private transfer: Transfer) {
 
   }
 
@@ -23,13 +28,13 @@ export class UploadPage {
         {
           text: 'Zaladuj z biblioteki',
           handler: () => {
-            this.takePicture(Camera.PictureSourceType.PHOTOLIBRARY);
+            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
         {
           text: 'Uzyj kamery',
           handler: () => {
-            this.takePicture(Camera.PictureSourceType.CAMERA);
+            this.takePicture(this.camera.PictureSourceType.CAMERA);
           }
         },
         {
@@ -51,10 +56,10 @@ export class UploadPage {
     };
 
     // Get the data of an image
-    Camera.getPicture(options).then((imagePath) => {
+    this.camera.getPicture(options).then((imagePath) => {
       // Special handling for Android library
-      if (this.platform.is('android') && sourceType === Camera.PictureSourceType.PHOTOLIBRARY) {
-        FilePath.resolveNativePath(imagePath)
+      if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
+        this.filePath.resolveNativePath(imagePath)
           .then(filePath => {
             var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
             var correctPath = filePath.substr(0, imagePath.lastIndexOf('/') + 1);
@@ -74,14 +79,14 @@ export class UploadPage {
   // Create a new name for the image
   private createFileName() {
     var d = new Date(),
-    n = d.getTime(),
-    newFileName = n + ".jpg";
+      n = d.getTime(),
+      newFileName = n + ".jpg";
     return newFileName;
   }
 
   // Copy the image a local folder
   private copyFileToLocalDir(namePath, currentName, newFileName) {
-    File.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
+    this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
       this.lastImage = newFileName;
     }, error => {
       this.presentToast('Blad podczas zatrzymywania pliku.');
@@ -106,40 +111,41 @@ export class UploadPage {
     }
   }
 
-  public uploadImage() {
-    // Destination URL
-    var url = "http//url/upload.php";
+  // public uploadImage() {
+    
+  //   // Destination URL
+  //   var url = "http//url/upload.php";
 
-    // File for Upload
-    var targetPath = this.pathForImage(this.lastImage);
+  //   // File for Upload
+  //   var targetPath = this.pathForImage(this.lastImage);
 
-    // File name only
-    var filename = this.lastImage;
+  //   // File name only
+  //   var filename = this.lastImage;
 
-    var options = {
-      fileKey: "file",
-      fileName: filename,
-      chunkedMode: false,
-      mimeType: "multipart/form-data",
-      params: {'fileName': filename}
-    };
+  //   var options = {
+  //     fileKey: "file",
+  //     fileName: filename,
+  //     chunkedMode: false,
+  //     mimeType: "multipart/form-data",
+  //     params: { 'fileName': filename }
+  //   };
 
-    const fileTransfer = new Transfer();
+  //   const fileTransfer = new Transfer();
 
-    this.loading = this.loadingCtrl.create({
-      content: 'Zamieszczanie...',
-    });
-    this.loading.present();
+  //   this.loading = this.loadingCtrl.create({
+  //     content: 'Zamieszczanie...',
+  //   });
+  //   this.loading.present();
 
-    // Use the fileTransfer to upload the image
-    fileTransfer.upload(targetPath, url, options).then(data => {
-      this.loading.dismissAll()
-      this.presentToast('Zdjecie zaladowane poprawnie.');
-    }, err => {
-      this.loading.dismissAll()
-      this.presentToast('Blad podczas zamieszczania pliku.');
-    });
-  }
+  //   // Use the fileTransfer to upload the image
+  //   fileTransfer.upload(targetPath, url, options).then(data => {
+  //     this.loading.dismissAll()
+  //     this.presentToast('Zdjecie zaladowane poprawnie.');
+  //   }, err => {
+  //     this.loading.dismissAll()
+  //     this.presentToast('Blad podczas zamieszczania pliku.');
+  //   });
+  // }
 
   ionViewDidLoad() {
     console.log('Hello UploadPage Page');

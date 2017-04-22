@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 
 import { LoginPage } from '../pages/login/login';
@@ -30,54 +31,52 @@ export class MyApp {
   rootPage: any;
 
 
-  constructor(public platform: Platform, public af: AngularFire) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, af: AngularFire) {
 
-    const authListener = af.auth.subscribe( user => {
-          if (user){
-            this.rootPage = TabsPage;
-            authListener.unsubscribe();
-          } else {
-            this.rootPage = LoginPage;
-            authListener.unsubscribe();
-          }
-    });
-    this.initializeApp();
-
-  
-/*
-    af.auth.subscribe(user => {
+    const authListener = af.auth.subscribe(user => {
       if (user) {
-        this.rootPage = LoginPage; 
-      } else {
         this.rootPage = TabsPage;
+        authListener.unsubscribe();
+      } else {
+        this.rootPage = LoginPage;
+        authListener.unsubscribe();
       }
     });
-      */
-  }
 
-
-    initializeApp() {
-
-    this.platform.ready().then(() => {
+    platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-      Splashscreen.hide();
+      statusBar.styleDefault();
+      splashScreen.hide();
     });
+
+
+
+
+    /*
+        af.auth.subscribe(user => {
+          if (user) {
+            this.rootPage = LoginPage; 
+          } else {
+            this.rootPage = TabsPage;
+          }
+        });
+          */
   }
 
-    pages: PageInterface[] = [
-      { title: 'Start', icon: 'home', component: TabsPage },
-      { title: 'Tablica', icon: 'pen', component: TablicaPage },
-      { title: 'Inwestycje', icon: 'list-box', component: InwestycjePage },
-      { title: 'MapHome', icon: 'list-box', component: HomeMapPage },
-      { title: 'List', icon: 'list-box', component: ListPage },
-      { title: 'Upload', icon: 'list-box', component: UploadPage }
-    ];
+
+  pages: PageInterface[] = [
+    { title: 'Start', icon: 'home', component: TabsPage },
+    { title: 'Tablica', icon: 'pen', component: TablicaPage },
+    { title: 'Inwestycje', icon: 'list-box', component: InwestycjePage },
+    { title: 'MapHome', icon: 'list-box', component: HomeMapPage },
+    { title: 'List', icon: 'list-box', component: ListPage },
+    { title: 'Upload', icon: 'list-box', component: UploadPage }
+  ];
 
   openPage(page: PageInterface) {
     this.nav.setRoot(page.component);
   }
-  
+
 
 }

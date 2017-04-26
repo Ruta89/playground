@@ -21,6 +21,7 @@ import { ListPage } from '../pages/list/list';
 import { UploadPage } from '../pages/upload/upload';
 import { HomeMapPage } from '../pages/homemap/homemap';
 import { TablicaPage } from '../pages/tablica/tablica';
+import { Navigation } from '../pages/navigation/navigation';
 
 // Importing provider
 import { AuthData } from '../providers/auth-data';
@@ -84,7 +85,8 @@ const myFirebaseAuthConfig = {
     ElasticHeader,
     HomeMapPage,
     TablicaPage,
-    PolaczenieComponent
+    PolaczenieComponent,
+    Navigation
 
   ],
   imports: [
@@ -114,7 +116,8 @@ const myFirebaseAuthConfig = {
     ListPage,
     UploadPage,
     HomeMapPage,
-    TablicaPage
+    TablicaPage,
+    Navigation
   ],
   // providers: AuthData, ProfileData, Data
   providers: [

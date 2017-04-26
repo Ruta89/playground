@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MapPage } from '../map/map';
 import { ListPage } from '../list/list';
+import { Navigation } from '../navigation/navigation';
 
 @Component({
   selector: 'page-homemap',
@@ -10,6 +11,7 @@ export class HomeMapPage {
 
   tab1Root: any = MapPage;
   tab2Root: any = ListPage;
+  tab3Root: any = Navigation;
 
   constructor() {
 

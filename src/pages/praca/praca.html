@@ -1,12 +1,40 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Praca</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
-<h3>Praca</h3>
+  <h3>Praca</h3>
+  <button ion-button (click)="openModal()">Otworz modal</button>
+  
+  <ion-buttons end>
+    <button ion-button icon-only (click)="addNaddatek()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-buttons>
+
+
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Cel</ion-label>
+      <ion-input type="text" [(ngModel)]="destination"></ion-input>
+    </ion-item>
+  </ion-list>
+  {{destination}} - {{destination}}
+
+  <!--<ion-list>
+    <ion-item *ngFor="let naddatek of naddatki | async" (click)="showOptions(naddatek.$key, naddatek.title)">
+      <ul>
+        <li>
+          <b>Tonaz:</b> {{naddatek.tonaz}} T
+        </li>
+        <li>
+          <b>dlugosc:</b>L1- {{naddatek.dlugosc}} m
+        </li>
+        <li>
+          <b>maszyna:</b> {{naddatek.maszyna}}
+        </li>
+        <li>
+          <b>naddatek:</b> {{naddatek.naddatek}} cm
+        </li>
+      </ul>
+    </ion-item>
+  </ion-list>-->
+
+
 </ion-content>

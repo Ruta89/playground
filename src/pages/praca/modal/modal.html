@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>ModalPage</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()">Zamknij</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p>
+    Zawartosc modal znajduje sie w ModalPage
+  </p>
+
+  <p *ngIf="wartosc" >Arek Ruta</p>
+
+  <ng-template [ngIf]="wartosc2" >
+    <p>ng-template</p>
+  </ng-template>
+
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Cel</ion-label>
+      <ion-input type="text" [(ngModel)]="destination2"></ion-input>
+    </ion-item>
+  </ion-list>
+  {{destination2}}
+
+</ion-content>

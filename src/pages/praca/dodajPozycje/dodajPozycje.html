@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Dodaj Pozycje</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()">Zamknij</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<p>formGroupDodajPozycje.value | json: {{ formGroupDodajPozycje.value | json }}</p>
+<p>Form status: {{ formGroupDodajPozycje.status | json }}</p>
+
+  <form [formGroup]="formGroupDodajPozycje" novalidate>
+    <div class="form-group">
+    <ion-item>
+      <ion-label floating>Tonaz</ion-label>
+      <ion-input type="number" [(ngModel)]="wll" formControlName="wll" required name="wll"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>L1</ion-label>
+      <ion-input type="number" [(ngModel)]="l1" formControlName="l1" required name="l1"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Licznik</ion-label>
+      <ion-input type="number" [(ngModel)]="m"formControlName="m" required name="m"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Nici</ion-label>
+      <ion-input type="text" [(ngModel)]="nici" formControlName="nici" required name="nici"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Zlecenie</ion-label>
+      <ion-input type="number" [(ngModel)]="auf" formControlName="auf" required name="auf"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Sztuk</ion-label>
+      <ion-input type="number" [(ngModel)]="ilosc" formControlName="ilosc" required name="ilosc"></ion-input>
+    </ion-item>
+    </div>
+    <div padding>
+      <button ion-button color="primary" type="submit" (click)="zapiszPozycje(wll, l1, m, nici, auf, ilosc)" [disabled]="formGroupDodajPozycje.pristine" block>Zapisz</button>
+    </div>
+  </form>
+
+</ion-content>

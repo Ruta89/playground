@@ -1,23 +1,67 @@
 <ion-content padding>
   <h3>Praca</h3>
-  <button ion-button (click)="openModal()">Otworz modal</button>
-  
-  <ion-buttons end>
-    <button ion-button icon-only (click)="addNaddatek()">
-      <ion-icon name="add"></ion-icon>
+  <div>
+    <ion-buttons left>
+      <button ion-button (click)="addNaddatek()">Dadaj Naddatek
     </button>
-  </ion-buttons>
 
 
+      <button ion-button (click)="openModal()">Dodaj naddatek</button>
+
+
+      <button ion-button (click)="otworzPozycje()">Otworz pozycje</button>
+
+    </ion-buttons>
+  </div>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>WLL</th>
+          <th>L1</th>
+          <th>Licznik</th>
+          <th>Nici</th>
+          <th>Zlecenie</th>
+          <th>Ilosć</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pozycja of listaPozycji | async" (click)="showOptionslistaPozycji(pozycja.$key, pozycja.auf)">
+
+          <td> <span>{{pozycja.wll}}</span> T</td>
+
+          <td> <span>{{pozycja.l1}} </span>m </td>
+
+
+          <td> <span>{{pozycja.m}} </span> </td>
+
+          <td> <span>{{pozycja.nici}}</span></td>
+
+
+          <td> <span>{{pozycja.auf}}</span></td>
+
+
+          <td> <span>{{pozycja.ilosc}}</span></td>
+
+
+          <td> <span>{{pozycja.date |  amDateFormat: 'DD-MM'}}</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+
+      <!--
   <ion-list>
-    <ion-item>
+     
       <ion-label floating>Cel</ion-label>
       <ion-input type="text" [(ngModel)]="destination"></ion-input>
-    </ion-item>
+     
   </ion-list>
-  {{destination}} - {{destination}}
+  <button ion-button full>Weź kierunek</button> {{destination}} - {{destination}}-->
 
-  <!--<ion-list>
+      <!--<ion-list>
     <ion-item *ngFor="let naddatek of naddatki | async" (click)="showOptions(naddatek.$key, naddatek.title)">
       <ul>
         <li>
@@ -33,7 +77,7 @@
           <b>naddatek:</b> {{naddatek.naddatek}} cm
         </li>
       </ul>
-    </ion-item>
+     
   </ion-list>-->
 
 

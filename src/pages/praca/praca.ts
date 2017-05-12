@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, ActionSheetController, NavParams, Modal, ModalOptions, ModalController, LoadingController } from 'ionic-angular';
+import { NavController, AlertController, ActionSheetController, NavParams, ModalController, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { FeedApi } from "../../providers/feed-api";
+//import { FeedApi } from "../../providers/feed-api";
+import { PracaService } from "../../providers/praca-service";
 
 class Pozycja {
   wll: number;
@@ -10,29 +11,35 @@ class Pozycja {
   nici: string;
   auf: number;
   ilosc: number;
-
+  currentPerson: any;
   constructor() { }
 }
+
 
 @Component({
   selector: 'page-praca',
   templateUrl: 'praca.html'
 })
 export class PracaPage {
+  naddatki: any;
   listaPozycji: any = [];
   pozycja: Pozycja = new Pozycja;
   private addForm: FormGroup;
-
+  user: any;
+  toggle: boolean = true;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    public feedApi: FeedApi,
+    //public feedApi: FeedApi,
+    public pracaService: PracaService,
     public actionSheetCtrl: ActionSheetController,
     public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
     private modalCtrl: ModalController) {
-
-    this.listaPozycji = feedApi.listaPozycji;
+    console.log("auth-data this.user" + this.user);
+    this.naddatki = pracaService.naddatki;
+    //this.naddatki = pracaService.GetNaddatki;
+    this.listaPozycji = pracaService.listaPozycji;
 
     this.addForm = this.formBuilder.group({
       wll: [''],
@@ -48,53 +55,18 @@ export class PracaPage {
   }
 
   otworzPozycje() {
-    const modalPozycjaOptions: ModalOptions = {
-      enableBackdropDismiss: false    //jezeli klikne za oknem to sie nie zamknie
-    };
-
-    // const myCzas = {
-    //   date: new Date().toISOString()
-    // };
-
-    const modalPozycja = this.modalCtrl.create('DodajPozycjePage', modalPozycjaOptions);
-
+    const modalPozycja = this.modalCtrl.create('DodajPozycjePage');
     modalPozycja.present();
 
-    modalPozycja.onDidDismiss((data) => {
-      console.log("I have to dismiss");
-      console.log(data);
-    });
+    // modalPozycja.onDidDismiss((data) => {
+    //   console.log("modalPozycja.onDidDismiss   I have to dismiss");
+    //   console.log(data);
+    // });
 
-    modalPozycja.onWillDismiss((data) => {
-      console.log("I'm about to dismiss");
-      console.log(data);
-    });
-  }
-
-
-  openModal() {
-
-    const myModalOptions: ModalOptions = {
-      enableBackdropDismiss: false    //jezeli klikne za oknem to sie nie zamknie
-    };
-
-    //let myModal: Modal = this.modalCtrl.create('ModalPage', myModalOptions);
-    // co daje   : Modal
-    let myModal: Modal = this.modalCtrl.create('ModalPage', myModalOptions);
-
-    myModal.present();
-
-    myModal.onDidDismiss(
-      (data) => {
-      console.log("myModal.onDidDismiss data:");
-      console.log(data);
-    });
-
-    myModal.onWillDismiss(
-      (data) => {
-      console.log("myModal.onWillDismiss   data:");
-      console.log(data);
-    });
+    // modalPozycja.onWillDismiss((data) => {
+    //   console.log(" modalPozycja.onWillDismiss   I'm about to dismiss");
+    //   console.log(data);
+    // });
   }
 
   // onFormSubmitted(form) {
@@ -138,7 +110,7 @@ export class PracaPage {
         {
           text: 'Zapisz',
           handler: data => {
-            this.feedApi.addNaddatek(data);
+            this.pracaService.zapiszNaddatek(data);
           }
         }
       ]
@@ -230,7 +202,7 @@ export class PracaPage {
         {
           text: 'Save',
           handler: data => {
-            this.feedApi.updateNaddatek(data);
+            this.pracaService.updateNaddatek(data);
           }
         }
       ]
@@ -278,7 +250,7 @@ export class PracaPage {
           text: 'Usuń naddatek',
           role: 'destructive',
           handler: () => {
-            this.feedApi.removeNaddatek(naddatekId);
+            this.pracaService.removeNaddatek(naddatekId);
           }
         }, {
           text: 'Uaktualnij naddatek',
@@ -307,7 +279,7 @@ export class PracaPage {
 
     loading.present();
 
-    if (this.feedApi.listaPozycji) {
+    if (this.pracaService.listaPozycji) {
       loading.dismiss();
       console.log('listaPozycji zaladowana');
     } else {

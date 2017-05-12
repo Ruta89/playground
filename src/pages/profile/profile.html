@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Profile</ion-title>
+  <ion-navbar color="zielony">
+    <ion-title>Profil</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="logout()">
         <ion-icon name="log-out"></ion-icon>
@@ -11,53 +11,62 @@
 
 <ion-content class="profile">
   <ion-list>
-    <ion-list-header>
-      Personal Information
-    </ion-list-header>
-
-    <ion-item (click)="updateName()">
-      <ion-grid>
-        <ion-row>
-          <ion-col width-50>
-            Name
-          </ion-col>
-          <ion-col *ngIf="userProfile?.firstName || userProfile?.lastName">
-            {{userProfile?.firstName}} {{userProfile?.lastName}}
-          </ion-col>
-          <ion-col class="placeholder-profile" *ngIf="!userProfile?.firstName">
-            <span>
+    <ion-card>
+      <ion-card-header>
+        <img src="http://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
+        <ion-fab top right>
+          <button ion-fab mini><ion-icon name="add"></ion-icon></button>
+          <ion-fab-list>
+            <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+            <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+            <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+            <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+          </ion-fab-list>
+        </ion-fab>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item (click)="updateName()">
+          <ion-grid>
+            <ion-row>
+              <ion-col width-50>
+                Name
+              </ion-col>
+              <ion-col *ngIf="userProfile?.firstName || userProfile?.lastName">
+                {{userProfile?.firstName}} {{userProfile?.lastName}}
+              </ion-col>
+              <ion-col class="placeholder-profile" *ngIf="!userProfile?.firstName">
+                <span>
               Tap here to edit.
             </span>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
 
-    <ion-item>
-      <ion-label class="dob-label">Date of Birth</ion-label>
-      <ion-datetime displayFormat="MMM D, YYYY" pickerFormat="D MMM YYYY"
-        [(ngModel)]="birthDate" (ionChange)="updateDOB(birthDate)"></ion-datetime>
-    </ion-item>
+        <ion-item>
+          <ion-label class="dob-label">Date of Birth</ion-label>
+          <ion-datetime displayFormat="MMM D, YYYY" pickerFormat="D MMM YYYY" [(ngModel)]="birthDate" (ionChange)="updateDOB(birthDate)"></ion-datetime>
+        </ion-item>
 
-    <ion-item (click)="updateEmail()">
-      <ion-grid>
-        <ion-row>
-          <ion-col width-50>
-            Email
-          </ion-col>
-          <ion-col width-50 *ngIf="userProfile?.email">
-            {{userProfile?.email}}
-          </ion-col>
-          <ion-col class="placeholder-profile" *ngIf="!userProfile?.email">
-            <span>
+        <ion-item (click)="updateEmail()">
+          <ion-grid>
+            <ion-row>
+              <ion-col width-50>
+                Email
+              </ion-col>
+              <ion-col width-50 *ngIf="userProfile?.email">
+                {{userProfile?.email}}
+              </ion-col>
+              <ion-col class="placeholder-profile" *ngIf="!userProfile?.email">
+                <span>
               Tap here to edit.
             </span>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
 
-    <ion-item (click)="updatePassword()">
+           <ion-item (click)="updatePassword()">
       <ion-grid>
         <ion-row>
           <ion-col width-50>
@@ -71,5 +80,25 @@
         </ion-row>
       </ion-grid>
     </ion-item>
+
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col width-50>
+                Zapisany Newsletter
+              </ion-col>
+              <ion-col class="placeholder-profile" width-50>
+                <ion-label>Zapisany Newsletter</ion-label>
+                <ion-checkbox color="green" checked="true"></ion-checkbox>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+
+
+      </ion-card-content>
+    </ion-card>
   </ion-list>
+
 </ion-content>

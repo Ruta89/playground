@@ -1,19 +1,30 @@
+<ion-header>
+  <ion-navbar color="zielony">
+    <ion-title>Praca</ion-title>
+  </ion-navbar>
+</ion-header>
 <ion-content padding>
   <h3>Praca</h3>
-  <div>
-    <ion-buttons left>
-      <button ion-button (click)="addNaddatek()">Dadaj Naddatek
-    </button>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-8>
 
+          <ion-buttons>
+            <button ion-button (click)="addNaddatek()">Dadaj Naddatek </button>
+            <button ion-button (click)="otworzPozycje()">Otworz pozycje</button> </ion-buttons>
+ 
+      </ion-col>
+      <ion-col col-4>
 
-      <button ion-button (click)="openModal()">Dodaj naddatek</button>
+        <ion-item>
+          <ion-label>{{toggle ? 'Naddatki' : 'Pozycje'}}</ion-label>
+          <ion-toggle (click)="toggle = !toggle"></ion-toggle>
+        </ion-item>
 
-
-      <button ion-button (click)="otworzPozycje()">Otworz pozycje</button>
-
-    </ion-buttons>
-  </div>
-  <div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div *ngIf="toggle; else elseBlock">
     <table>
       <thead>
         <tr>
@@ -29,9 +40,9 @@
       <tbody>
         <tr *ngFor="let pozycja of listaPozycji | async" (click)="showOptionslistaPozycji(pozycja.$key, pozycja.auf)">
 
-          <td> <span>{{pozycja.wll}}</span> T</td>
+          <td> <span>{{pozycja.wll}}</span> </td>
 
-          <td> <span>{{pozycja.l1}} </span>m </td>
+          <td> <span>{{pozycja.l1}} </span> </td>
 
 
           <td> <span>{{pozycja.m}} </span> </td>
@@ -49,21 +60,35 @@
         </tr>
       </tbody>
     </table>
-    </div>
+  </div>
+  <ng-template #elseBlock>
+    <h2>Naddatki</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>tonaz</th>
+          <th>Długość</th>
+          <th>Maszyna</th>
+          <th>Naddatek</th>
+          <th>data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let naddatek of naddatki | async" (click)="showOptions(naddatek.$key, naddatek.title)">
+          <td> <span>{{naddatek.tonaz}}</span></td>
+          <td> <span>{{naddatek.dlugosc}}</span></td>
+          <td> <span>{{naddatek.maszyna}}</span></td>
+          <td> <span>{{naddatek.naddatek}}</span></td>
+          <td> <span>{{naddatek.timestamp |  amDateFormat: 'DD-MM'}}</span></td>
+        </tr>
+      </tbody>
+    </table>
 
 
-      <!--
-  <ion-list>
-     
-      <ion-label floating>Cel</ion-label>
-      <ion-input type="text" [(ngModel)]="destination"></ion-input>
-     
-  </ion-list>
-  <button ion-button full>Weź kierunek</button> {{destination}} - {{destination}}-->
 
-      <!--<ion-list>
+
+    <!--<ion-list>
     <ion-item *ngFor="let naddatek of naddatki | async" (click)="showOptions(naddatek.$key, naddatek.title)">
-      <ul>
         <li>
           <b>Tonaz:</b> {{naddatek.tonaz}} T
         </li>
@@ -77,8 +102,9 @@
           <b>naddatek:</b> {{naddatek.naddatek}} cm
         </li>
       </ul>
+    </ion-item>
      
   </ion-list>-->
 
-
+  </ng-template>
 </ion-content>

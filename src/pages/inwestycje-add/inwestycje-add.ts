@@ -14,8 +14,8 @@ export class InwestycjeAddPage {
   adresChanged: boolean = false;
   zdjecieMinChanged: boolean = false;
   opisChanged: boolean = false;
-  dueDateChanged: boolean = false;
-  endBuildChanged: boolean = false;
+  startDateChanged: boolean = false;
+  endDateChanged: boolean = false;
   submitAttempt: boolean = false;
 
   constructor(public navCtrl: NavController, public inwestData: InwestData, public formBuilder: FormBuilder) {
@@ -25,8 +25,8 @@ export class InwestycjeAddPage {
       adres: ['', Validators.required],
       zdjecieMin: ['', Validators.required],
       opis: ['', Validators.required],
-      dueDate: ['', Validators.required],
-      endBuildDate: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
     });
   }
 
@@ -42,7 +42,7 @@ export class InwestycjeAddPage {
       console.log(this.newBillForm.value);
     } else {
       this.inwestData.createBill(this.newBillForm.value.name, this.newBillForm.value.amount, this.newBillForm.value.adres, this.newBillForm.value.zdjecieMin,
-        this.newBillForm.value.opis, this.newBillForm.value.dueDate, this.newBillForm.value.endBuildDate).then(() => {
+        this.newBillForm.value.opis, this.newBillForm.value.startDate, this.newBillForm.value.endDate).then(() => {
           this.navCtrl.pop();
         }, error => {
           console.log(error);

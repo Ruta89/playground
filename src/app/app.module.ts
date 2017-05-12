@@ -22,6 +22,7 @@ import { UploadPage } from '../pages/upload/upload';
 import { HomeMapPage } from '../pages/homemap/homemap';
 import { TablicaPage } from '../pages/tablica/tablica';
 import { Navigation } from '../pages/navigation/navigation';
+import { GeolocationPage } from '../pages/geolocation/geolocation';
 
 // Importing provider
 import { AuthData } from '../providers/auth-data';
@@ -31,6 +32,7 @@ import { Locations } from '../providers/locations';
 import { GoogleMaps } from '../providers/google-maps';
 import { Connectivity } from '../providers/connectivity';
 import { FeedApi } from '../providers/feed-api';
+import { PracaService } from '../providers/praca-service';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -41,6 +43,7 @@ import { Transfer } from '@ionic-native/transfer';
 import { Network } from '@ionic-native/network';
 import { Geolocation } from '@ionic-native/geolocation';
 import { HttpModule } from '@angular/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Import the AF2 Module
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
@@ -49,6 +52,10 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { ElasticHeader } from '../components/elastic-header/elastic-header';
 import { PolaczenieComponent } from '../components/polaczenie/polaczenie';
 
+import { LocationTracker } from '../providers/location-tracker';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+import { MomentModule } from 'angular2-moment';
+import { Overslide } from "../components/overslide/overslide";
 
 // AF2 Settings
 export const firebaseConfig = {
@@ -86,12 +93,16 @@ const myFirebaseAuthConfig = {
     HomeMapPage,
     TablicaPage,
     PolaczenieComponent,
-    Navigation
+    Navigation,
+    GeolocationPage,
+    Overslide
 
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    MomentModule,
+    ReactiveFormsModule,
     IonicModule.forRoot(MyApp, {
       tabsPlacement: 'top'
     }),
@@ -117,7 +128,8 @@ const myFirebaseAuthConfig = {
     UploadPage,
     HomeMapPage,
     TablicaPage,
-    Navigation
+    Navigation,
+    GeolocationPage
   ],
   // providers: AuthData, ProfileData, Data
   providers: [
@@ -136,7 +148,10 @@ const myFirebaseAuthConfig = {
     Locations,
     GoogleMaps,
     Connectivity,
-    FeedApi
+    FeedApi,
+    LocationTracker,
+    BackgroundGeolocation,
+    PracaService
   ]
 })
 export class AppModule { }

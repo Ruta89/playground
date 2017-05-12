@@ -15,6 +15,7 @@
 </ion-header>
 
 <ion-content>
+
   <ion-list>
     <ion-list-header>
       Planowane Inwestycje
@@ -22,19 +23,19 @@
     <ion-item *ngFor="let bill of billList | async" (click)="moreBillOptions(bill.$key)" [class.hide]="bill.startBuild == true">
       <ion-row>
         <ion-col width-75>
-      <ion-icon name="timer" color="danger" item-left></ion-icon>
-      <h2>{{bill.name}}</h2>
-      <h3>Total: <strong>${{bill.amount}}</strong></h3>
-      <p>
-        Adres: <strong>{{bill.adres}}</strong>
-      </p>
-      <p>Data rozpoczecie budowy: <strong>{{bill.dueDate}}</strong></p>
-      <p>Data zakonczenia budowy: <strong>{{bill.endBuildDate}}</strong></p>
-      </ion-col>
-      <ion-col width-25>
-        <img src="assets/img/inwest/{{bill.zdjecieMin}}" />
-      </ion-col>
-    </ion-row>
+          <ion-icon name="timer" color="danger" item-left></ion-icon>
+          <h2>{{bill.name}}</h2>
+          <h3>Total: <strong>${{bill.amount}}</strong></h3>
+          <p>
+            Adres: <strong>{{bill.adres}}</strong>
+          </p>
+          <p>Data rozpoczecie budowy: <strong>{{bill.dueDate}}</strong></p>
+          <p>Data zakonczenia budowy: <strong>{{bill.endBuildDate}}</strong></p>
+        </ion-col>
+        <ion-col width-25>
+          <img src="assets/img/inwest/{{bill.zdjecieMin}}" />
+        </ion-col>
+      </ion-row>
     </ion-item>
 
   </ion-list>
@@ -52,8 +53,4 @@
       </p>
     </ion-item>
   </ion-list>
-
-  <button ion-button block (click)="logMeOut()">
-    Wyloguj sie - do testowania
-  </button>
 </ion-content>

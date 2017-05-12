@@ -3,7 +3,6 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-
 import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
 import { InwestycjePage } from '../pages/inwestycje/inwestycje';
@@ -30,16 +29,18 @@ export class MyApp {
 
   rootPage: any;
 
-
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, af: AngularFire) {
 
-    const authListener = af.auth.subscribe(user => {
+    const authObserver = af.auth.subscribe( user => {
       if (user) {
+        console.log("APP.COMPONENT USER ZALOGOWANY");
+        //console.log("app.component user zalogowany JSON.stringify(user) :  " + JSON.stringify(user));
         this.rootPage = TabsPage;
-        authListener.unsubscribe();
+        authObserver.unsubscribe();
       } else {
         this.rootPage = LoginPage;
-        authListener.unsubscribe();
+        console.log("app.component user NIE JEST zalogowany");
+        authObserver.unsubscribe();
       }
     });
 
@@ -49,19 +50,6 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
-
-
-
-
-    /*
-        af.auth.subscribe(user => {
-          if (user) {
-            this.rootPage = LoginPage; 
-          } else {
-            this.rootPage = TabsPage;
-          }
-        });
-          */
   }
 
 

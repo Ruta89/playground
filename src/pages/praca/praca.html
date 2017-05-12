@@ -1,12 +1,110 @@
 <ion-header>
-
-  <ion-navbar>
+  <ion-navbar color="zielony">
     <ion-title>Praca</ion-title>
   </ion-navbar>
-
 </ion-header>
-
-
 <ion-content padding>
-<h3>Praca</h3>
+  <h3>Praca</h3>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-8>
+
+          <ion-buttons>
+            <button ion-button (click)="addNaddatek()">Dadaj Naddatek </button>
+            <button ion-button (click)="otworzPozycje()">Otworz pozycje</button> </ion-buttons>
+ 
+      </ion-col>
+      <ion-col col-4>
+
+        <ion-item>
+          <ion-label>{{toggle ? 'Naddatki' : 'Pozycje'}}</ion-label>
+          <ion-toggle (click)="toggle = !toggle"></ion-toggle>
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div *ngIf="toggle; else elseBlock">
+    <table>
+      <thead>
+        <tr>
+          <th>WLL</th>
+          <th>L1</th>
+          <th>Licznik</th>
+          <th>Nici</th>
+          <th>Zlecenie</th>
+          <th>Ilosć</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pozycja of listaPozycji | async" (click)="showOptionslistaPozycji(pozycja.$key, pozycja.auf)">
+
+          <td> <span>{{pozycja.wll}}</span> </td>
+
+          <td> <span>{{pozycja.l1}} </span> </td>
+
+
+          <td> <span>{{pozycja.m}} </span> </td>
+
+          <td> <span>{{pozycja.nici}}</span></td>
+
+
+          <td> <span>{{pozycja.auf}}</span></td>
+
+
+          <td> <span>{{pozycja.ilosc}}</span></td>
+
+
+          <td> <span>{{pozycja.date |  amDateFormat: 'DD-MM'}}</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #elseBlock>
+    <h2>Naddatki</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>tonaz</th>
+          <th>Długość</th>
+          <th>Maszyna</th>
+          <th>Naddatek</th>
+          <th>data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let naddatek of naddatki | async" (click)="showOptions(naddatek.$key, naddatek.title)">
+          <td> <span>{{naddatek.tonaz}}</span></td>
+          <td> <span>{{naddatek.dlugosc}}</span></td>
+          <td> <span>{{naddatek.maszyna}}</span></td>
+          <td> <span>{{naddatek.naddatek}}</span></td>
+          <td> <span>{{naddatek.timestamp |  amDateFormat: 'DD-MM'}}</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+
+    <!--<ion-list>
+    <ion-item *ngFor="let naddatek of naddatki | async" (click)="showOptions(naddatek.$key, naddatek.title)">
+        <li>
+          <b>Tonaz:</b> {{naddatek.tonaz}} T
+        </li>
+        <li>
+          <b>dlugosc:</b>L1- {{naddatek.dlugosc}} m
+        </li>
+        <li>
+          <b>maszyna:</b> {{naddatek.maszyna}}
+        </li>
+        <li>
+          <b>naddatek:</b> {{naddatek.naddatek}} cm
+        </li>
+      </ul>
+    </ion-item>
+     
+  </ion-list>-->
+
+  </ng-template>
 </ion-content>

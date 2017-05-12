@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import {
-  NavController,
-  NavParams,
-  ActionSheetController,
-  Platform,
-  AlertController
-} from 'ionic-angular';
+import { NavController,
+         NavParams,
+         ActionSheetController,
+         Platform,
+         AlertController } from 'ionic-angular';
 import { InwestData } from '../../providers/inwest-data';
 import { AuthData } from '../../providers/auth-data';
 import { Camera } from '@ionic-native/camera';
@@ -16,9 +14,10 @@ import { SignupPage } from '../signup/signup';
   templateUrl: 'inwestycje-detail.html'
 })
 export class InwestycjeDetailPage {
+  user:any;
   public bill: any;
-  // public placeholderPicture: string = "assets/img/debt-collector.jpg";
-  public placeholderPicture: string;
+   public placeholderPicture: string = "assets/img/debt-collector.jpg";
+  //public placeholderPicture: string;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform,
@@ -32,8 +31,8 @@ export class InwestycjeDetailPage {
   }
 
 
-  uploadPicture(billId): void {
-    if (this.authData.getUser().isAnonymous == true) {
+  uploadPicture(billId): void { 
+    if (!this.user) {
       let alert = this.alertCtrl.create({
         message: "If you want to continue you'll need to provide an email and create a password",
         buttons: [

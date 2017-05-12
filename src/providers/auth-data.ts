@@ -22,7 +22,7 @@ export class AuthData {
   }
 
 
-  loginUser(newEmail: string, newPassword: string):firebase.Promise<FirebaseAuthState> {
+  loginUser(newEmail: string, newPassword: string): firebase.Promise<FirebaseAuthState> {
     return this.af.auth.login({
       email: newEmail,
       password: newPassword
@@ -30,14 +30,14 @@ export class AuthData {
   }
 
 
-  anonymousLogin():firebase.Promise<FirebaseAuthState> {
+  anonymousLogin(): firebase.Promise<FirebaseAuthState> {
     return this.af.auth.login({
       provider: AuthProviders.Anonymous,
       method: AuthMethods.Anonymous
     });
   }
 
-  linkAccount(email: string, password: string):firebase.Promise<FirebaseAuthState> {
+  linkAccount(email: string, password: string): firebase.Promise<FirebaseAuthState> {
     const userProfile = firebase.database().ref('/userProfile');
     const credential = firebase.auth.EmailAuthProvider.credential(email, password);
 
@@ -50,11 +50,11 @@ export class AuthData {
     });
   }
 
-  resetPassword(email: string):firebase.Promise<FirebaseAuthState> {
+  resetPassword(email: string): firebase.Promise<FirebaseAuthState> {
     return firebase.auth().sendPasswordResetEmail(email);
   }
 
-  logoutUser():firebase.Promise<void> {
+  logoutUser(): firebase.Promise<void> {
     return this.af.auth.logout();
   }
 

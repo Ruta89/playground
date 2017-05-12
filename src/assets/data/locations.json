@@ -1,0 +1,30 @@
+{
+    "locations": [
+ 
+        {
+            "title": "Legendia Wesołe Miasteczko",
+            "latitude": 50.273423,
+            "longitude": 18.991437
+        },
+        {
+            "title": "Centrum handlowe Załęże",
+            "latitude": 50.263013, 
+            "longitude": 18.986500
+        },
+        {
+            "title": "Silesia City Center",
+            "latitude": 50.270512, 
+            "longitude": 19.004977
+        },
+        {
+            "title": "Dolezych",
+            "latitude": 50.224369,
+            "longitude": 18.923916
+        },
+         {
+            "title": "Garage Club",
+            "latitude": 50.262804,
+            "longitude": 19.009799
+        }
+    ]
+}

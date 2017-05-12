@@ -13,13 +13,12 @@ export class InwestData {
   userId: string;
 
   constructor(public af: AngularFire) {
-    af.auth.subscribe(auth => {
+     af.auth.subscribe(auth => {
       if (auth) {
         this.billList = this.af.database.list(`/userProfile/${auth.uid}/billList`);
         this.userId = auth.uid;
       }
     });
-
   }
 
   getBillList(): FirebaseListObservable<any> {

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>New Bill</ion-title>
+    <ion-title>Dodaj inwestycje</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -39,7 +39,7 @@
     <ion-item>
       <ion-label stacked>Zdjecie miniaturka</ion-label>
       <ion-input #zdjecieMin formControlName="zdjecieMin" type="text" (change)="elementChanged(zdjecieMin)"
-      placeholder="Adres inwestycji"
+      placeholder="zdjecieMin"
       [class.invalid]="!newBillForm.controls.zdjecieMin.valid && (zdjecieMinChanged || submitAttempt)"></ion-input>
     </ion-item>
     <ion-item class="error-message" *ngIf="!newBillForm.controls.zdjecieMin.valid  && (zdjecieMinChanged || submitAttempt)">
@@ -58,23 +58,23 @@
 
     <ion-item>
       <ion-label>Data rozpoczecia budowy</ion-label>
-      <ion-datetime displayFormat="D MMM, YY" pickerFormat="DD MMM YYYY"
-        formControlName="dueDate" max="2020-10-31"
-      [class.invalid]="!newBillForm.controls.dueDate.valid && (dueDateChanged || submitAttempt)">
+      <ion-datetime displayFormat="D MMM, YY" [(ngModel)]="startDate"
+        formControlName="startDate" max="2020-10-31"
+      [class.invalid]="!newBillForm.controls.startDate.valid && (startDateChanged || submitAttempt)">
     </ion-datetime>
     </ion-item>
-    <ion-item class="error-message" *ngIf="!newBillForm.controls.dueDate.valid  && (dueDateChanged || submitAttempt)">
+    <ion-item class="error-message" *ngIf="!newBillForm.controls.startDate.valid  && (startDateChanged || submitAttempt)">
       <p>Data rozpoczecia budowy?</p>
     </ion-item>
 
     <ion-item>
       <ion-label>Data ukonczenia budowy</ion-label>
-      <ion-datetime displayFormat="D MMM, YY" pickerFormat="DD MMM YYYY"
-        formControlName="endBuildDate" max="2030-10-31"
-      [class.invalid]="!newBillForm.controls.endBuildDate.valid && (endBuildChanged || submitAttempt)">
+      <ion-datetime displayFormat="D MMM, YY" [(ngModel)]="endDate"
+        formControlName="endDate" max="2030-10-31"
+      [class.invalid]="!newBillForm.controls.endDate.valid && (endDateChanged || submitAttempt)">
     </ion-datetime>
     </ion-item>
-    <ion-item class="error-message" *ngIf="!newBillForm.controls.endBuildDate.valid  && (endBuildChanged || submitAttempt)">
+    <ion-item class="error-message" *ngIf="!newBillForm.controls.endDate.valid  && (endDateChanged || submitAttempt)">
       <p>Kiedy jest planowana data ukonczenia inwestycji</p>
     </ion-item>
 

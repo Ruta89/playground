@@ -10,6 +10,7 @@ import { AngularFire } from 'angularfire2';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+
   public userProfile: any;
   public birthDate: string;
 
@@ -112,5 +113,6 @@ export class ProfilePage {
     });
     alert.present();
   }
+
 
 }

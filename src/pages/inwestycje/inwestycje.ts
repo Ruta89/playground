@@ -4,7 +4,6 @@ import { InwestData } from '../../providers/inwest-data';
 import { AuthData } from '../../providers/auth-data';
 import { InwestycjeAddPage } from '../inwestycje-add/inwestycje-add';
 import { InwestycjeDetailPage } from '../inwestycje-detail/inwestycje-detail';
-import { LandingPage } from '../landing/landing';
 
 @Component({
   selector: 'page-inwestycje',
@@ -15,20 +14,22 @@ export class InwestycjePage {
   constructor(public navCtrl: NavController, public inwestData: InwestData,
     public actionCtrl: ActionSheetController, public platform: Platform,
     public authData: AuthData) {
-    this.billList = this.inwestData.getBillList();
+      this.billList = this.inwestData.getBillList();
   }
 
-  createBill(){
+
+
+  createBill() {
     this.navCtrl.push(InwestycjeAddPage);
   }
 
-  goToPaidBill(billId){
+  goToPaidBill(billId) {
     this.navCtrl.push(InwestycjeDetailPage, {
       billId: billId
     });
   }
 
-  moreBillOptions(billId){
+  moreBillOptions(billId) {
     let action = this.actionCtrl.create({
       title: 'Modyfikuj',
       buttons: [
@@ -69,9 +70,7 @@ export class InwestycjePage {
     action.present();
   }
 
-  logMeOut() {
-    this.authData.logoutUser().then( () => {
-      this.navCtrl.push(LandingPage);
-    });
+  ionViewDidLoad() {
   }
+
 }

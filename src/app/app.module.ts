@@ -41,6 +41,7 @@ import { Transfer } from '@ionic-native/transfer';
 import { Network } from '@ionic-native/network';
 import { Geolocation } from '@ionic-native/geolocation';
 import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Import the AF2 Module
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
@@ -92,6 +93,8 @@ const myFirebaseAuthConfig = {
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
+    ReactiveFormsModule,
     IonicModule.forRoot(MyApp, {
       tabsPlacement: 'top'
     }),

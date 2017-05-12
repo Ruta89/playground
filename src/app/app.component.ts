@@ -67,6 +67,7 @@ export class MyApp {
 
   pages: PageInterface[] = [
     { title: 'Start', icon: 'home', component: TabsPage },
+    { title: 'Dolezych', icon: 'home', component: 'DolezychPage' },
     { title: 'Tablica', icon: 'pen', component: TablicaPage },
     { title: 'Inwestycje', icon: 'list-box', component: InwestycjePage },
     { title: 'MapHome', icon: 'list-box', component: HomeMapPage },

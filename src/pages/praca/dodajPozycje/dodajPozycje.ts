@@ -22,7 +22,7 @@ export class DodajPozycjePage {
 
   constructor(public pracaService: PracaService, private fb: FormBuilder, public navCtrl: NavController, private navParams: NavParams, private view: ViewController) {
 
-   // this.listaPozycji = pracaService.listaPozycji;
+    // this.listaPozycji = pracaService.listaPozycji;
     this.createForm();
   }
 
@@ -40,7 +40,7 @@ export class DodajPozycjePage {
 
   zapiszPozycje(wll, l1, m, nici, auf, ilosc) {
     this.pracaService.savePozycja(wll, l1, m, nici, auf, ilosc);
-     this.navCtrl.push(PracaPage);
+    this.navCtrl.push(PracaPage);
   }
   //   this.listaPozycji.push({
   //     wll: wll,

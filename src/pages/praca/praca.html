@@ -5,26 +5,69 @@
 </ion-header>
 <ion-content padding>
   <h3>Praca</h3>
-  <ion-grid>
-    <ion-row>
-      <ion-col col-8>
 
-          <ion-buttons>
-            <button ion-button (click)="addNaddatek()">Dadaj Naddatek </button>
-            <button ion-button (click)="otworzPozycje()">Otworz pozycje</button> </ion-buttons>
+
+  <form [formGroup]="formGroupDodajPozycje" novalidate>
+    <div class="form-group">
+      <ion-item>
+        <ion-label floating>Tonaz</ion-label>
+        <ion-input type="number" [(ngModel)]="wll" formControlName="wll" required name="wll"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>L1</ion-label>
+        <ion-input type="number" [(ngModel)]="l1" formControlName="l1" required name="l1"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Licznik</ion-label>
+        <ion-input type="number" [(ngModel)]="m" formControlName="m" required name="m"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Nici</ion-label>
+        <ion-input type="text" [(ngModel)]="nici" formControlName="nici" required name="nici"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Zlecenie</ion-label>
+        <ion-input type="number" [(ngModel)]="auf" formControlName="auf" required name="auf"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Sztuk</ion-label>
+        <ion-input type="number" [(ngModel)]="ilosc" formControlName="ilosc" required name="ilosc"></ion-input>
+      </ion-item>
+    </div>
+    <div padding>
+      <button ion-button color="primary" type="submit" (click)="zapiszPozycje(wll, l1, m, nici, auf, ilosc)" [disabled]="formGroupDodajPozycje.pristine"
+        block>Zapisz</button>
+    </div>
+  </form>
+
+
+
+  <p>
+    <ion-badge item-right>{{ formGroupDodajPozycje.status | json }}</ion-badge>
+    {{ formGroupDodajPozycje.value | json }}
+  </p>
+
+
+
+  <!--<ion-buttons>
+    <button ion-button (click)="addNaddatek()">Dadaj Naddatek </button>
+    <button ion-button (click)="otworzPozycje()">Otworz pozycje</button>
+  </ion-buttons>-->
+
+<div padding>
+  <ion-segment [(ngModel)]="segmentPraca">
+    <ion-segment-button value="pozycje">
+      Pozycje
+    </ion-segment-button>
+    <ion-segment-button value="naddatki">
+      Naddatki
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
+<div [ngSwitch]="segmentPraca">
+  <ion-list *ngSwitchCase="'pozycje'">
  
-      </ion-col>
-      <ion-col col-4>
-
-        <ion-item>
-          <ion-label>{{toggle ? 'Naddatki' : 'Pozycje'}}</ion-label>
-          <ion-toggle (click)="toggle = !toggle"></ion-toggle>
-        </ion-item>
-
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <div *ngIf="toggle; else elseBlock">
     <table>
       <thead>
         <tr>
@@ -60,10 +103,12 @@
         </tr>
       </tbody>
     </table>
-  </div>
-  <ng-template #elseBlock>
-    <h2>Naddatki</h2>
-    <table>
+
+  </ion-list>
+
+  <ion-list *ngSwitchCase="'naddatki'">
+
+ <table>
       <thead>
         <tr>
           <th>tonaz</th>
@@ -84,27 +129,12 @@
       </tbody>
     </table>
 
+  </ion-list>
+</div>
 
 
 
-    <!--<ion-list>
-    <ion-item *ngFor="let naddatek of naddatki | async" (click)="showOptions(naddatek.$key, naddatek.title)">
-        <li>
-          <b>Tonaz:</b> {{naddatek.tonaz}} T
-        </li>
-        <li>
-          <b>dlugosc:</b>L1- {{naddatek.dlugosc}} m
-        </li>
-        <li>
-          <b>maszyna:</b> {{naddatek.maszyna}}
-        </li>
-        <li>
-          <b>naddatek:</b> {{naddatek.naddatek}} cm
-        </li>
-      </ul>
-    </ion-item>
-     
-  </ion-list>-->
 
-  </ng-template>
+
+
 </ion-content>

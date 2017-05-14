@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { AngularFire, FirebaseListObservable } from "angularfire2";
+//import { AngularFire, FirebaseListObservable } from "angularfire2";
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import firebase from 'firebase';
 
 
@@ -18,15 +19,12 @@ currentUser:any
     ilosc: any;
     listaPozycji: any;
     data: any;
-    constructor(public http: Http, public af: AngularFire) {
+    constructor(public http: Http, public afDb: AngularFireDatabase) {
          this.currentUser = firebase.auth().currentUser.uid;
-        this.listaPozycji = af.database.list(`userProfile/${this.currentUser}/listaPozycji`);
-        this.naddatki = af.database.list(`userProfile/${this.currentUser}/naddatki`);
-       // this.listaPozycji = af.database.list('/produkcjaPoz');
-       // this.naddatki = af.database.list('/naddatki');
-
-
+        this.listaPozycji = afDb.list(`userProfile/${this.currentUser}/listaPozycji`);
+        this.naddatki = afDb.list(`userProfile/${this.currentUser}/naddatki`);
     }
+    
     get GetListaPozycji() {
         return this.listaPozycji;
     }

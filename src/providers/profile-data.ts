@@ -1,17 +1,30 @@
 import { Injectable } from '@angular/core';
-import firebase from 'firebase';
-
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import  firebase from 'firebase';
 @Injectable()
 export class ProfileData {
 
   userProfile: any;
   currentUser: any;
 
-  constructor() {
+  constructor(public afAuth: AngularFireAuth, public afDb: AngularFireDatabase, public af: AngularFireDatabase) {
 
-    this.currentUser = firebase.auth().currentUser;
+    afAuth.authState.subscribe((user) => {
+      if (user){ 
+         this.currentUser = user;
+         console.log("Uzytkownik "+ user.email +" zalogowant."+ user.uid +" uid");
+      } else {
+        console.log("nie ma uzytownika w profile-data");
+      }
+    }); 
+
+
     this.userProfile = firebase.database().ref('/userProfile');
-
+   this.currentUser = afAuth.auth.currentUser;
+   // this.currentUser = firebase.auth().currentUser;
+    //this.currentUser = afAuth.auth.currentUser;
+    //this.userProfile = this.afDb.database.ref('/userProfile');
   }
 
   getUserProfile(): any {

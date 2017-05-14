@@ -14,11 +14,13 @@ export class InwestycjePage {
   constructor(public navCtrl: NavController, public inwestData: InwestData,
     public actionCtrl: ActionSheetController, public platform: Platform,
     public authData: AuthData) {
-      this.billList = this.inwestData.getBillList();
+    this.billList = this.inwestData.getBillList();
   }
 
 
-
+  createInvest() {
+    this.navCtrl.push('AddInvestPage');
+  }
   createBill() {
     this.navCtrl.push(InwestycjeAddPage);
   }

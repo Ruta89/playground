@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, ActionSheetController, NavParams, ModalController, LoadingController } from 'ionic-angular';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 //import { FeedApi } from "../../providers/feed-api";
 import { PracaService } from "../../providers/praca-service";
 
@@ -21,15 +21,26 @@ class Pozycja {
   templateUrl: 'praca.html'
 })
 export class PracaPage {
+  formGroupDodajPozycje: FormGroup;
+  data: any;
+  listaPozycji: any;
+  //  listaPozycji: any = [];
+  wll: any;
+  l1: any;
+  m: any;
+  nici: any;
+  auf: any;
+  ilosc: any;
+
   naddatki: any;
-  listaPozycji: any = [];
   pozycja: Pozycja = new Pozycja;
-  private addForm: FormGroup;
+  // private addForm: FormGroup;
   user: any;
   toggle: boolean = true;
+  segmentPraca: string = "pozycje";
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    //public feedApi: FeedApi,
     public pracaService: PracaService,
     public actionSheetCtrl: ActionSheetController,
     public loadingCtrl: LoadingController,
@@ -38,20 +49,25 @@ export class PracaPage {
     private modalCtrl: ModalController) {
     console.log("auth-data this.user" + this.user);
     this.naddatki = pracaService.naddatki;
-    //this.naddatki = pracaService.GetNaddatki;
     this.listaPozycji = pracaService.listaPozycji;
 
-    this.addForm = this.formBuilder.group({
-      wll: [''],
-      l1: [''],
-      licznik: [''],
-      nici: [''],
+    this.createForm();
+  }
+
+  createForm() {
+    this.formGroupDodajPozycje = this.formBuilder.group({
+      wll: ['', Validators.required],
+      l1: ['', Validators.required],
+      m: ['', Validators.required],
+      nici: ['', Validators.required],
       auf: [''],
-      ilosc: [''],
-      waga: [''],
+      ilosc: ['', Validators.required]
     });
+  }
 
-
+  zapiszPozycje(wll, l1, m, nici, auf, ilosc) {
+    this.pracaService.savePozycja(wll, l1, m, nici, auf, ilosc);
+    this.navCtrl.push(PracaPage);
   }
 
   otworzPozycje() {

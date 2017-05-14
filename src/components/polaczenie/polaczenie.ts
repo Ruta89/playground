@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FirebaseObjectObservable, AngularFire } from 'angularfire2';
+//import { FirebaseObjectObservable, AngularFire } from 'angularfire2';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'polaczenie',
@@ -9,8 +10,8 @@ export class PolaczenieComponent {
 
   status: FirebaseObjectObservable<any>;
 
-  constructor(public af: AngularFire) {
-    this.status = this.af.database.object('.info/connected');
+  constructor(public afDb: AngularFireDatabase) {
+    this.status = this.afDb.object('.info/connected');
   }
 
 }

@@ -69,6 +69,18 @@ export class LoginPage {
       this.loading.present();
     }
   }
+
+  loginFacebook() {
+    this.authData.signInWithFacebook().then(() => {
+      console.log("poprawnie zalofowano z facebook");
+    }).catch((error) => {
+      console.log("error login facebook " + error);
+    })
+  }
+
+  signInWithFacebook() {
+
+  }
   goToResetPassword() {
     this.navCtrl.push(ResetPasswordPage);
   }

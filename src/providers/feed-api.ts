@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+//import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 @Injectable()
 export class FeedApi {
@@ -9,12 +10,12 @@ export class FeedApi {
   todos: FirebaseListObservable<any>;
   data: any;
 
-  constructor(public af: AngularFire) {
+  constructor(public afDb: AngularFireDatabase) {
     console.log('Hello FeedApi Provider');
-    this.posts = af.database.list('/posts');
-    this.naddatki = af.database.list('/naddatki');
-    this.listaPozycji = af.database.list('/produkcjaPoz');
-    this.todos = af.database.list('/items');
+    this.posts = afDb.list('/posts');
+    this.naddatki = afDb.list('/naddatki');
+    this.listaPozycji = afDb.list('/produkcjaPoz');
+    this.todos = afDb.list('/items');
   }
 
   get ListaPozycji() {
@@ -60,7 +61,7 @@ export class FeedApi {
   }
 
   addPost(post) {
-    this.af.database.list('/posts').push(post);
+    this.afDb.list('/posts').push(post);
   }
   // ########################################################################################################################################
 
@@ -69,18 +70,18 @@ export class FeedApi {
   }
 
   addTodo(item) {
-    this.af.database.list('/items').push({
+    this.afDb.list('/items').push({
       "text": item,
       "isDone": false
     });
   }
 
   usunTodo(item) {
-    this.af.database.list('/items').remove(item);
+    this.afDb.list('/items').remove(item);
   }
 
   updateTodo(key, isDone) {
-    this.af.database.list('/items').update(key, { isDone: isDone });
+    this.afDb.list('/items').update(key, { isDone: isDone });
   }
   // ########################################################################################################################################
 

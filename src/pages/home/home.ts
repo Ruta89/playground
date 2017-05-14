@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
 import { LoginPage } from '../login/login';
-import { AngularFire } from 'angularfire2';
 import { ProfilePage } from '../profile/profile';
-//import firebase from 'firebase';
+import { AuthData } from '../../providers/auth-data';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public af: AngularFire) {
+  constructor(public navCtrl: NavController, public authData: AuthData) {
     this.navCtrl = navCtrl;
    }
 
@@ -26,7 +26,10 @@ export class HomePage {
   }
 
   logoutUser(): any {
-    return this.af.auth.logout();
+    this.authData.signOut().then(()=>{
+      this.navCtrl.push(LoginPage);
+    })
+    //return this.af.auth.logout();
     }
 
   ionViewDidLoad() {

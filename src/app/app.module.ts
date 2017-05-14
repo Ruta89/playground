@@ -4,6 +4,10 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 import { TodoPage } from '../pages/todo/todo';
 import { InwestycjePage } from '../pages/inwestycje/inwestycje';
 import { PracaPage } from '../pages/praca/praca';
@@ -42,12 +46,12 @@ import { FilePath } from '@ionic-native/file-path';
 import { Transfer } from '@ionic-native/transfer';
 import { Network } from '@ionic-native/network';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Facebook } from '@ionic-native/facebook';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 
 // Import the AF2 Module
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+//stare import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 //  directive
 import { ElasticHeader } from '../components/elastic-header/elastic-header';
@@ -57,20 +61,7 @@ import { LocationTracker } from '../providers/location-tracker';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { MomentModule } from 'angular2-moment';
 import { Overslide } from "../components/overslide/overslide";
-
-// AF2 Settings
-export const firebaseConfig = {
-  apiKey: "AIzaSyBAtxuuk_5SBqaKI32UROdnnFbD7Sw9Rbg",
-  authDomain: "friendlychat-5ffbc.firebaseapp.com",
-  databaseURL: "https://friendlychat-5ffbc.firebaseio.com",
-  storageBucket: "friendlychat-5ffbc.appspot.com",
-  messagingSenderId: "30536843314"
-};
-
-const myFirebaseAuthConfig = {
-  provider: AuthProviders.Password,
-  method: AuthMethods.Password
-}
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -101,14 +92,16 @@ const myFirebaseAuthConfig = {
   ],
   imports: [
     BrowserModule,
+    IonicModule.forRoot(MyApp, {
+      tabsPlacement: 'top'
+    }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     HttpModule,
     FormsModule,
     MomentModule,
     ReactiveFormsModule,
-    IonicModule.forRoot(MyApp, {
-      tabsPlacement: 'top'
-    }),
-    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -143,6 +136,7 @@ const myFirebaseAuthConfig = {
     Transfer,
     Network,
     Geolocation,
+    Facebook,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthData,
     ProfileData,

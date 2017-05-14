@@ -7,6 +7,7 @@
 </ion-header>
 
 <ion-content padding>
+  <div>
   <ion-grid>
     <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
       <ion-row>
@@ -22,7 +23,8 @@
 
         </ion-col>
       </ion-row>
-      <ion-card formArrayName="addresses" *ngFor="let address of myForm.controls.addresses.controls; let i=index">
+
+       <ion-card formArrayName="addresses" *ngFor="let address of myForm.controls.addresses.controls; let i=index">
         <ion-row>
           <ion-col>
 
@@ -69,4 +71,5 @@
 
     </form>
   </ion-grid>
+  </div>
 </ion-content>

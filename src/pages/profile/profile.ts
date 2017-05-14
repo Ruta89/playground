@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { ProfileData } from '../../providers/profile-data';
 import { AuthData } from '../../providers/auth-data';
 import { LoginPage } from '../login/login';
-import { AngularFire } from 'angularfire2';
+// import { AngularFire } from 'angularfire2';
+// import { AngularFireAuth } from "angularfire2/auth";
 
 @Component({
   selector: 'page-profile',
@@ -15,9 +16,9 @@ export class ProfilePage {
   public birthDate: string;
 
   constructor(public navCtrl: NavController, public profileData: ProfileData,
-    public authData: AuthData, public alertCtrl: AlertController, public af: AngularFire) {
-    this.navCtrl = navCtrl;
-    this.profileData = profileData;
+    public authData: AuthData, public alertCtrl: AlertController) {
+    // this.navCtrl = navCtrl;
+    //this.profileData = profileData;
 
     this.profileData.getUserProfile().on('value', (data) => {
       this.userProfile = data.val();
@@ -28,7 +29,7 @@ export class ProfilePage {
 
 
   logout() {
-    this.authData.logoutUser().then(() => {
+    this.authData.signOut().then(() => {
       this.navCtrl.push(LoginPage);
     });
   }

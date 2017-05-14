@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFire,
-  FirebaseListObservable,
-  FirebaseObjectObservable
-} from 'angularfire2';
+//import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import firebase from 'firebase';
+import { AngularFireAuth } from "angularfire2/auth";
 
 @Injectable()
 export class InwestData {
@@ -12,21 +10,18 @@ export class InwestData {
   billDetail: FirebaseObjectObservable<any>;
   userId: string;
 
-  constructor(public af: AngularFire) {
-     af.auth.subscribe(auth => {
-      if (auth) {
-        this.billList = this.af.database.list(`/userProfile/${auth.uid}/billList`);
-        this.userId = auth.uid;
-      }
-    });
+  constructor(public afAuth: AngularFireAuth, public afDB: AngularFireDatabase) {
+    this.userId = afAuth.auth.currentUser.uid;
+    this.billList = afDB.list(`/userProfile/${this.userId}/billList`);
   }
+
 
   getBillList(): FirebaseListObservable<any> {
     return this.billList;
   }
 
   getBill(billId: string): FirebaseObjectObservable<any> {
-    return this.billDetail = this.af.database.object('/userProfile/' + this.userId + '/billList/' + billId);
+    return this.billDetail = this.afDB.object('/userProfile/' + this.userId + '/billList/' + billId);
   }
 
   createBill(name: string, amount: number, adres: string, zdjecieMin: string, opis: string, dueDate: string = null, endBuildDate: string = null): firebase.Promise<any> {

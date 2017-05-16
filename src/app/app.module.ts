@@ -33,7 +33,7 @@ import { AuthData } from '../providers/auth-data';
 import { ProfileData } from '../providers/profile-data';
 import { InwestData } from '../providers/inwest-data';
 import { Locations } from '../providers/locations';
-import { GoogleMaps } from '../providers/google-maps';
+import { GoogleMapsService } from '../providers/google-maps';
 import { Connectivity } from '../providers/connectivity';
 import { FeedApi } from '../providers/feed-api';
 import { PracaService } from '../providers/praca-service';
@@ -47,8 +47,10 @@ import { Transfer } from '@ionic-native/transfer';
 import { Network } from '@ionic-native/network';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Facebook } from '@ionic-native/facebook';
+import { GoogleMaps } from '@ionic-native/google-maps';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 // Import the AF2 Module
 //stare import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
@@ -62,6 +64,7 @@ import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { MomentModule } from 'angular2-moment';
 import { Overslide } from "../components/overslide/overslide";
 import { environment } from '../environments/environment';
+import { LocalNotifications } from "@ionic-native/local-notifications";
 
 @NgModule({
   declarations: [
@@ -137,6 +140,8 @@ import { environment } from '../environments/environment';
     Network,
     Geolocation,
     Facebook,
+    LocalNotifications,
+    GoogleMapsService,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthData,
     ProfileData,

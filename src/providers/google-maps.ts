@@ -5,7 +5,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 declare var google;
 
 @Injectable()
-export class GoogleMaps {
+export class GoogleMapsService {
 
   mapElement: any;
   pleaseConnect: any;

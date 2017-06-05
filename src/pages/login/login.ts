@@ -70,13 +70,13 @@ export class LoginPage {
     }
   }
 
-  loginFacebook() {
-    this.authData.signInWithFacebook().then(() => {
-      console.log("poprawnie zalofowano z facebook");
-    }).catch((error) => {
-      console.log("error login facebook " + error);
-    })
-  }
+  // loginFacebook() {
+  //   this.authData.signInWithFacebook().then(() => {
+  //     console.log("poprawnie zalofowano z facebook");
+  //   }).catch((error) => {
+  //     console.log("error login facebook " + error);
+  //   })
+  // }
 
   signInWithFacebook() {
 

@@ -1,8 +1,0 @@
-{
-  "projects": {
-    "default": "friendlychat-5ffbc",
-    "www/": "friendlychat-5ffbc",
-    "friendlychat": "friendlychat-5ffbc",
-    "feed": "friendlychat-5ffbc"
-  }
-}

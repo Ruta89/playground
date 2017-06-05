@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 //import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
 //import firebase from 'firebase';
-import * as firebase from 'firebase/app';
-
+//import * as firebase from 'firebase/app';
+import * as firebase from 'firebase/auth';
 import { Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 
@@ -15,11 +15,16 @@ export class AuthData {
   // user: any;
   private authState: Observable<firebase.User>;
   private currentUser: firebase.User;
+  user: any;
+  userId: any;
+  getUserID: any;
+  userF: any;
 
   constructor(public afAuth: AngularFireAuth, public platform: Platform, public facebook: Facebook) {
     this.authState = afAuth.authState;
     afAuth.authState.subscribe((user: firebase.User) => {
       this.currentUser = user;
+      //this.userF = firebase.User.uid;
     });
   }
 
@@ -30,17 +35,21 @@ export class AuthData {
   get authenticated(): boolean {
     return this.currentUser !== null;
   }
+  // userIdd(){
+  //    return console.log("gy");
+  // }
+  
 
-  signInWithFacebook(): firebase.Promise<any> {
-    if (this.platform.is('cordova')) {
-      return this.facebook.login(['email', 'public_profile']).then(res => {
-        const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-        return this.afAuth.auth.signInWithCredential(facebookCredential);
-      });
-    } else {
-      return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
-    }
-  }
+  // signInWithFacebook(): firebase.Promise<any> {
+  //   if (this.platform.is('cordova')) {
+  //     return this.facebook.login(['email', 'public_profile']).then(res => {
+  //       const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+  //       return this.afAuth.auth.signInWithCredential(facebookCredential);
+  //     });
+  //   } else {
+  //     return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+  //   }
+  // }
 
 
 
@@ -62,18 +71,22 @@ export class AuthData {
   //   });
   // }
 
-  linkAccount(email: string, password: string): firebase.Promise<any> {
-    const userProfile = firebase.database().ref('/userProfile');
-    const credential = firebase.auth.EmailAuthProvider.credential(email, password);
 
-    return firebase.auth().currentUser.link(credential).then(user => {
-      userProfile.child(user.uid).update({
-        email: email
-      });
-    }, error => {
-      console.log("There was an error linking the account", error);
-    });
-  }
+
+
+  // linkAccount(email: string, password: string): firebase.Promise<any> {
+  //   const userProfile = firebase.database().ref('/userProfile');
+  //   const credential = firebase.auth.EmailAuthProvider.credential(email, password);
+
+  //   return firebase.auth().currentUser.link(credential).then(user => {
+  //     userProfile.child(user.uid).update({
+  //       email: email
+  //     });
+  //   }, error => {
+  //     console.log("There was an error linking the account", error);
+  //   });
+  // }
+  
 
   resetPassword(email: string): firebase.Promise<any> {
     return firebase.auth().sendPasswordResetEmail(email);

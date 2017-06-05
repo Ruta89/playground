@@ -1,75 +1,51 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+
+  <ion-navbar color="zielony">
+    <ion-title>Dolezych</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="powiadomienie()">Powiadomienie</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <div>
-  <ion-grid>
-    <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
-      <ion-row>
-        <ion-col>
+  <ion-card *ngFor="let card of cards">
 
-          <ion-item>
-            <ion-label floating>Name</ion-label>
-            <ion-input type="text" formControlName="name"></ion-input>
-          </ion-item>
-          <ion-note *ngIf="!myForm.controls.name.valid" color="danger">
-            Name is required (minimum 5 characters).
-          </ion-note>
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="https://avatars.io/gravatar/joshua.morony" />
+      </ion-avatar>
+      <h2>Josh Morony</h2>
+      <p>November 5, 1955</p>
+    </ion-item>
 
-        </ion-col>
-      </ion-row>
+    <img src="http://placehold.it/500x200" />
 
-       <ion-card formArrayName="addresses" *ngFor="let address of myForm.controls.addresses.controls; let i=index">
-        <ion-row>
-          <ion-col>
+    <ion-card-content>
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+      text ever since the 1500s.
+    </ion-card-content>
 
-            <ion-item>
-              <span>Address {{i + 1}}</span>
-              <span *ngIf="myForm.controls.addresses.controls.length > 1" (click)="removeAddress(i)">
-                </span>
-            </ion-item>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-left clear small>
+            <ion-icon name="thumbs-up"></ion-icon>
+            <div>12 Likes</div>
+          </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-left clear small>
+            <ion-icon name="text"></ion-icon>
+            <div>4 Comments</div>
+          </button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          11h ago
+        </ion-note>
+      </ion-col>
+    </ion-row>
 
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col [formGroupName]="i">
+  </ion-card>
 
-            <ion-item>
-              <ion-label>street</ion-label>
-              <input type="text" formControlName="street">
-            </ion-item>
-            <ion-note [hidden]="myForm.controls.addresses.controls[i].controls.street.valid">
-              Street is required
-            </ion-note>
-
-            <ion-item>
-              <ion-label>postcode</ion-label>
-              <input type="text" formControlName="postcode">
-            </ion-item>
-
-          </ion-col>
-        </ion-row>
-      </ion-card>
-      <button ion-button full type="submit" [disabled]="!myForm.valid">
-        Submit
-      </button>
-
-      <ion-card>
-        <ion-card-content>
-          <ion-card-title>
-            myForm details:-
-          </ion-card-title>
-          <pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>
-          <pre>form value: <br>{{myForm.value | json}}</pre>
-        </ion-card-content>
-      </ion-card>
-
-    </form>
-  </ion-grid>
-  </div>
 </ion-content>

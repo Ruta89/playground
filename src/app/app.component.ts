@@ -29,8 +29,8 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public afAuth: AngularFireAuth) {
 
     afAuth.authState.subscribe((user) => {
-      if (user){ 
-        console.log("Uzytkownik "+ user.email +" zalogowant."+ user.uid +" uid");
+      if (user) {
+        console.log("Uzytkownik " + user.email + " zalogowant." + user.uid + " uid");
         this.rootPage = TabsPage;
       } else {
         console.log("nie ma uzytownika");

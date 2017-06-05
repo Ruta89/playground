@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, ActionSheetController, NavParams, ModalController, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-//import { FeedApi } from "../../providers/feed-api";
 import { PracaService } from "../../providers/praca-service";
-
+import * as firebase from 'firebase/app';
+import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
+import { AuthData } from "../../providers/auth-data";
 class Pozycja {
   wll: number;
   l1: number;
@@ -15,7 +16,6 @@ class Pozycja {
   constructor() { }
 }
 
-
 @Component({
   selector: 'page-praca',
   templateUrl: 'praca.html'
@@ -23,22 +23,22 @@ class Pozycja {
 export class PracaPage {
   formGroupDodajPozycje: FormGroup;
   data: any;
-  listaPozycji: any;
-  //  listaPozycji: any = [];
+  listaPozycji: FirebaseListObservable<any[]>;
+  pozycje: FirebaseListObservable<any>;
   wll: any;
-  l1: any;
+  l1: number;
   m: any;
   nici: any;
   auf: any;
   ilosc: any;
-
-  naddatki: any;
+  naddatki: FirebaseListObservable<any[]>;
   pozycja: Pozycja = new Pozycja;
-  // private addForm: FormGroup;
   user: any;
   toggle: boolean = true;
   segmentPraca: string = "pozycje";
-
+  pozycjaDetail: any;
+  currentUser: any;
+  id: any;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public pracaService: PracaService,
@@ -46,12 +46,16 @@ export class PracaPage {
     public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
-    private modalCtrl: ModalController) {
-    console.log("auth-data this.user" + this.user);
+    private modalCtrl: ModalController,
+    public afDB: AngularFireDatabase, public authData: AuthData) {
     this.naddatki = pracaService.naddatki;
-    this.listaPozycji = pracaService.listaPozycji;
-
+    this.pozycje = pracaService.pozycje;
+    this.currentUser = firebase.auth().currentUser.uid;
     this.createForm();
+  }
+
+  getPozycja(id: string): FirebaseObjectObservable<any> {
+    return this.pozycjaDetail = this.afDB.object('/userProfile/' + this.currentUser + '/listaPozycji/' + id);
   }
 
   createForm() {
@@ -65,6 +69,12 @@ export class PracaPage {
     });
   }
 
+  openDetail(id) {
+    this.navCtrl.push('PracaDetailPage', {
+      id: id
+    });
+  }
+
   zapiszPozycje(wll, l1, m, nici, auf, ilosc) {
     this.pracaService.savePozycja(wll, l1, m, nici, auf, ilosc);
     this.navCtrl.push(PracaPage);
@@ -73,23 +83,7 @@ export class PracaPage {
   otworzPozycje() {
     const modalPozycja = this.modalCtrl.create('DodajPozycjePage');
     modalPozycja.present();
-
-    // modalPozycja.onDidDismiss((data) => {
-    //   console.log("modalPozycja.onDidDismiss   I have to dismiss");
-    //   console.log(data);
-    // });
-
-    // modalPozycja.onWillDismiss((data) => {
-    //   console.log(" modalPozycja.onWillDismiss   I'm about to dismiss");
-    //   console.log(data);
-    // });
   }
-
-  // onFormSubmitted(form) {
-  //   console.log('onFormSubmitted(form):');
-  //   console.log('form value:', form.value);
-  //   // Rest of the logic here
-  // }
 
   addNaddatek() {
     let prompt = this.alertCtrl.create({
@@ -120,7 +114,7 @@ export class PracaPage {
         {
           text: 'Anuluj',
           handler: data => {
-            console.log('Anulowales dodanie naddatku');
+           // console.log('Anulowales dodanie naddatku');
           }
         },
         {
@@ -133,11 +127,6 @@ export class PracaPage {
     });
     prompt.present();
   }
-
-  // removeNaddatek(naddatekId: string) {
-  //   //this.naddatki.remove(naddatekId);
-  //   // sprubuje przez serwis
-  // }
 
   usunPozycje(produkcjaId: string) {
     this.listaPozycji.remove(produkcjaId);
@@ -160,7 +149,7 @@ export class PracaPage {
         {
           text: 'Anuluj',
           handler: data => {
-            console.log('Kliknales Anuluj uaktualnijPozycje');
+           // console.log('Kliknales Anuluj uaktualnijPozycje');
           }
         },
         {
@@ -212,7 +201,7 @@ export class PracaPage {
         {
           text: 'Anuluj',
           handler: data => {
-            console.log('Kliknales Anuluj');
+            //console.log('Kliknales Anuluj');
           }
         },
         {
@@ -248,7 +237,7 @@ export class PracaPage {
           text: 'Anuluj',
           role: 'cancel',
           handler: () => {
-            console.log('Kliknales Anuluj');
+          //  console.log('Kliknales Anuluj');
           }
         }
       ]
@@ -277,7 +266,7 @@ export class PracaPage {
           text: 'Anuluj',
           role: 'cancel',
           handler: () => {
-            console.log('Kliknales Anuluj');
+           // console.log('Kliknales Anuluj');
           }
         }
       ]
@@ -287,7 +276,7 @@ export class PracaPage {
 
 
   ionViewDidLoad() {
-    console.log('Hello Praca Page Page');
+   // console.log('Hello Praca Page Page');
 
     let loading = this.loadingCtrl.create({
       content: 'Uzyskiwanie najnowszych wpisów ...'
@@ -295,11 +284,11 @@ export class PracaPage {
 
     loading.present();
 
-    if (this.pracaService.listaPozycji) {
+    if (this.pracaService.pozycje) {
       loading.dismiss();
-      console.log('listaPozycji zaladowana');
+     // console.log('listaPozycji zaladowana');
     } else {
-      console.log('listaPozycji nie zostala zaladowana');
+     // console.log('listaPozycji nie zostala zaladowana');
     }
 
 

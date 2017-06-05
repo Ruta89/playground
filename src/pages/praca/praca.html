@@ -81,7 +81,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let pozycja of listaPozycji | async" (click)="showOptionslistaPozycji(pozycja.$key, pozycja.auf)">
+        <tr *ngFor="let pozycja of pozycje | async" (click)="openDetail(pozycja?.$key)">
+        <!--(click)="showOptionslistaPozycji(pozycja.$key, pozycja.auf)">-->
 
           <td> <span>{{pozycja.wll}}</span> </td>
 
@@ -107,7 +108,7 @@
   </ion-list>
 
   <ion-list *ngSwitchCase="'naddatki'">
-
+ <button ion-button (click)="addNaddatek()">Dodaj</button>
  <table>
       <thead>
         <tr>
